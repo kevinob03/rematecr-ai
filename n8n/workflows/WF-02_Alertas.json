@@ -1,0 +1,139 @@
+[
+  {
+    "updatedAt": "2026-11-24T15:17:16.750Z",
+    "createdAt": "2026-11-24T15:17:16.750Z",
+    "id": "RemateCrAlerts02",
+    "name": "WF-02 Alertas de oportunidades",
+    "description": null,
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "id": "3e8dbad5-b00e-4561-b930-0495c1271cac",
+        "name": "Ejecutar prueba",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {}
+      },
+      {
+        "id": "39e08f18-f7fe-4fdf-97fa-7a9bf1bf231e",
+        "name": "Revisar oportunidades",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          0,
+          180
+        ],
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 8
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "6dddb391-3938-45d5-b3c4-94211b05e86b",
+        "name": "Crear alertas internas",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          300,
+          50
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "http://127.0.0.1:4310/api/v1/internal/workflows/alerts",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "={{ { eventId: \"wf02:\" + $execution.id } }}",
+          "options": {
+            "timeout": 15000
+          }
+        },
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 2000,
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "rematecrAlertsLocal",
+            "name": "RemateCR alertas"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Ejecutar prueba": {
+        "main": [
+          [
+            {
+              "node": "Crear alertas internas",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Revisar oportunidades": {
+        "main": [
+          [
+            {
+              "node": "Crear alertas internas",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1",
+      "timezone": "America/Costa_Rica"
+    },
+    "staticData": null,
+    "meta": null,
+    "nodeGroups": [],
+    "pinData": null,
+    "versionId": "36e59a82-6ad0-4267-9ec9-fad51246992d",
+    "activeVersionId": null,
+    "versionCounter": 1,
+    "triggerCount": 0,
+    "sourceWorkflowId": null,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-11-24T15:17:16.786Z",
+        "createdAt": "2026-11-24T15:17:16.786Z",
+        "role": "workflow:owner",
+        "workflowId": "RemateCrAlerts02",
+        "projectId": "e9FdMWbBAkpikvgw",
+        "project": {
+          "updatedAt": "2026-11-24T15:15:05.580Z",
+          "createdAt": "2026-11-24T15:15:05.580Z",
+          "id": "e9FdMWbBAkpikvgw",
+          "name": "Unnamed Project",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "customTelemetryTags": [],
+          "creatorId": "0b76ae15-ef7c-4b21-9b34-b323179dfef9"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

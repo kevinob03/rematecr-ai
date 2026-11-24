@@ -1,0 +1,709 @@
+{
+  "rf": [
+    [
+      "RF-01",
+      "Registro, sesión y cierre",
+      "Registrar cuentas con aceptación explícita, autenticar por correo y contraseña y permitir cerrar la sesión.",
+      "Alta",
+      "Cuentas"
+    ],
+    [
+      "RF-02",
+      "Recuperación de cuenta",
+      "Solicitar el restablecimiento y cambiar la contraseña con una credencial temporal de un solo uso.",
+      "Alta",
+      "Cuentas"
+    ],
+    [
+      "RF-03",
+      "Autorización por roles",
+      "Aplicar permisos de visitante, comprador, administrador y auditor en la API y mostrar la navegación aplicable a cada rol.",
+      "Alta",
+      "Cuentas"
+    ],
+    [
+      "RF-04",
+      "Perfil y preferencias",
+      "Mantener datos mínimos, categorías de interés y presupuesto privado del comprador.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-05",
+      "Catálogo de bienes",
+      "Consultar bienes muebles e inmuebles publicados, con categoría y procedencia.",
+      "Alta",
+      "Catálogo"
+    ],
+    [
+      "RF-06",
+      "Detalle del bien",
+      "Mostrar precio, moneda, procedencia, situación y fecha de comprobación cuando exista. Señalar los datos no verificados.",
+      "Alta",
+      "Catálogo"
+    ],
+    [
+      "RF-07",
+      "Búsqueda y filtros",
+      "Filtrar por categoría, subtipo, precio, ubicación y fuente. Paginar y ordenar por criterios permitidos.",
+      "Alta",
+      "Catálogo"
+    ],
+    [
+      "RF-08",
+      "Edición y publicación",
+      "Crear y editar borradores. Revisar con una persona antes de publicar y registrar cambios de estado.",
+      "Alta",
+      "Administrador"
+    ],
+    [
+      "RF-09",
+      "Fuentes de datos",
+      "Registrar procedencia, autorización de uso y fecha de observación cuando conste.",
+      "Alta",
+      "Administrador"
+    ],
+    [
+      "RF-10",
+      "Importación revisada",
+      "Cargar CSV o PDF autorizado, validar registros y mostrar una vista previa antes de aprobar.",
+      "Alta",
+      "Administrador"
+    ],
+    [
+      "RF-11",
+      "Posibles duplicados",
+      "Detectar coincidencias para revisión humana y conservar los originales hasta resolverlas.",
+      "Media",
+      "Administrador"
+    ],
+    [
+      "RF-12",
+      "Favoritos propios",
+      "Guardar y quitar bienes en la lista privada de la cuenta.",
+      "Media",
+      "Comprador"
+    ],
+    [
+      "RF-13",
+      "Simulador de costos",
+      "Calcular el subtotal conocido o el total estimado por categoría, con moneda, supuestos y gastos pendientes.",
+      "Alta",
+      "Simulador"
+    ],
+    [
+      "RF-14",
+      "RemateScore",
+      "Calcular afinidad con reglas reproducibles, guardar versión y desglose, e indicar cuándo falta evidencia.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-15",
+      "Comparador de bienes",
+      "Contrastar dos o más bienes con moneda y atributos comparables y hacer visibles los datos faltantes.",
+      "Media",
+      "Comparador"
+    ],
+    [
+      "RF-16",
+      "Expediente privado",
+      "Guardar por bien tareas, notas y documentos accesibles según propietario y permisos.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-17",
+      "Alertas internas",
+      "Mostrar oportunidades relacionadas con las preferencias cuando el comprador lo autorice.",
+      "Media",
+      "Comprador"
+    ],
+    [
+      "RF-18",
+      "AG-01 · Búsqueda natural",
+      "Convertir una consulta en filtros estructurados permitidos y mostrar resultados del catálogo obtenidos por el servidor.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-19",
+      "AG-02 · Extracción desde PDF",
+      "Extraer campos de un documento autorizado como borrador, con página y campos por revisar.",
+      "Alta",
+      "Administrador"
+    ],
+    [
+      "RF-20",
+      "AG-03 · Consulta documental",
+      "Responder a partir de documentos autorizados mediante recuperación de fragmentos y citar fuente y página cuando consten.",
+      "Alta",
+      "Comprador y administrador"
+    ],
+    [
+      "RF-21",
+      "AG-04 · Observación visual",
+      "Describir características visibles de una imagen autorizada y señalar aspectos para inspección.",
+      "Alta",
+      "Comprador y administrador"
+    ],
+    [
+      "RF-22",
+      "AG-05 · Explicación de RemateScore",
+      "Explicar el desglose calculado por el servidor y mantener la puntuación y los pesos originales.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-23",
+      "AG-06 · Explicación de costos",
+      "Explicar partidas y gastos pendientes del simulador conservando los importes calculados.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-24",
+      "AG-07 · Síntesis comparativa",
+      "Resumir diferencias sustentadas, límites y datos pendientes entre bienes autorizados.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-25",
+      "AG-08 · Remy",
+      "Orientar en búsqueda, comparación y seguimiento con herramientas permitidas y datos autorizados.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-26",
+      "Bitácora de IA",
+      "Registrar agente, rol, fecha, estado y, si el proveedor los entrega, uso y costo. Referenciar la ejecución sin guardar secretos.",
+      "Alta",
+      "Auditoría"
+    ],
+    [
+      "RF-27",
+      "API externa",
+      "Integrar por el servidor un servicio real de tipo de cambio y mostrar fuente, fecha y estado del dato. Proveedor pendiente.",
+      "Alta",
+      "Integraciones"
+    ],
+    [
+      "RF-28",
+      "WF-01 · Ingestión y revisión",
+      "Ejecutar y registrar la automatización de importación y revisión editorial.",
+      "Alta",
+      "n8n"
+    ],
+    [
+      "RF-29",
+      "WF-02 · Alertas",
+      "Ejecutar y registrar la selección de oportunidades y la generación de alertas internas.",
+      "Alta",
+      "n8n"
+    ],
+    [
+      "RF-30",
+      "WF-03 · Documentos",
+      "Ejecutar y registrar la preparación o indexación de documentos autorizados para consultas.",
+      "Alta",
+      "n8n"
+    ],
+    [
+      "RF-31",
+      "Aceptaciones versionadas",
+      "Registrar versión y fecha de aceptación de términos y política de privacidad.",
+      "Alta",
+      "Gobernanza"
+    ],
+    [
+      "RF-32",
+      "Derechos y baja de cuenta",
+      "Permitir acceso y rectificación de datos propios. Recibir, tramitar y notificar una baja confirmada con historial verificable.",
+      "Alta",
+      "Gobernanza"
+    ],
+    [
+      "RF-33",
+      "Textos de gobernanza",
+      "Mostrar política de privacidad, términos y canal de baja con las versiones aplicables.",
+      "Alta",
+      "Gobernanza"
+    ],
+    [
+      "RF-34",
+      "Paneles por rol",
+      "Mostrar acciones y registros pertinentes a comprador, administrador y auditor.",
+      "Alta",
+      "Administración"
+    ],
+    [
+      "RF-35",
+      "Acceso público por HTTPS",
+      "Publicar el frontend y la API con HTTPS en la entrega técnica y mantener el acceso a la base protegido.",
+      "Alta",
+      "Operación"
+    ],
+    [
+      "RF-36",
+      "Registro de eventos críticos",
+      "Registrar actor, fecha, acción y resultado para cambios editoriales, cuentas y seguimiento.",
+      "Alta",
+      "Auditoría"
+    ],
+    [
+      "RF-37",
+      "Carga de documentos propios",
+      "Recibir y consultar archivos autorizados en el expediente privado según propietario y permisos.",
+      "Alta",
+      "Comprador y administrador"
+    ],
+    [
+      "RF-38",
+      "Historial de precios",
+      "Guardar cambios observados con importe, moneda, fuente y fecha, y distinguirlos de estimaciones.",
+      "Media",
+      "Catálogo"
+    ],
+    [
+      "RF-39",
+      "Solicitud de seguimiento",
+      "Crear voluntariamente una solicitud sobre un bien y permitir que el comprador vea su propio estado.",
+      "Alta",
+      "Comprador"
+    ],
+    [
+      "RF-40",
+      "Tablero y ficha de seguimiento",
+      "Mostrar solicitudes, gestionar transiciones confirmadas y registrar responsable, fecha y etapa.",
+      "Alta",
+      "Administrador"
+    ],
+    [
+      "RF-41",
+      "Atención pendiente y métricas",
+      "Agrupar tareas vencidas y solicitudes sin revisar. Mostrar casos por etapa, tiempo hasta primera atención y casos sin seguimiento.",
+      "Media",
+      "Administrador"
+    ]
+  ],
+  "rnf": [
+    [
+      "RNF-01",
+      "Protección de contraseñas",
+      "Guardar únicamente hashes con bcrypt. Comprobar que el inicio de sesión valida el hash.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-02",
+      "JWT y control de acceso",
+      "Validar firma, vencimiento, rol y propiedad en el servidor. Denegar el acceso restringido si falla alguna condición.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-03",
+      "Validación en API",
+      "Verificar esquema, límites y estados permitidos en el servidor. Responder con errores claros y sin trazas internas.",
+      "Alta",
+      "Calidad"
+    ],
+    [
+      "RNF-04",
+      "Arquitectura y pruebas",
+      "Separar rutas, controladores, modelos, middleware y servicios. Proveer pruebas unitarias ejecutables con un comando.",
+      "Alta",
+      "Mantenibilidad"
+    ],
+    [
+      "RNF-05",
+      "Custodia de secretos",
+      "Cargar credenciales desde variables de entorno y excluir sus valores del repositorio, la UI y las bitácoras.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-06",
+      "Minimización y permisos",
+      "Limitar datos al propósito, segregar archivos privados y aplicar permisos también en consultas documentales y CRM.",
+      "Alta",
+      "Gobernanza"
+    ],
+    [
+      "RNF-07",
+      "Canal y límites",
+      "Usar HTTPS y limitar intentos y tamaño de carga. CORS usa orígenes, métodos y encabezados permitidos.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-08",
+      "Paginación e índices",
+      "Acotar consultas del catálogo y aplicar índices en los filtros de uso previsto. Revisar el plan de consultas con datos de prueba.",
+      "Alta",
+      "Rendimiento"
+    ],
+    [
+      "RNF-09",
+      "Adaptación y teclado",
+      "Comprobar flujos principales en escritorio y móvil, foco visible, navegación por teclado y mensajes comprensibles.",
+      "Alta",
+      "Usabilidad"
+    ],
+    [
+      "RNF-10",
+      "Bitácoras con minimización",
+      "Guardar registros estructurados de error con fecha, correlación y estado. Excluir contraseñas, tokens y contenido privado innecesario.",
+      "Alta",
+      "Observabilidad"
+    ],
+    [
+      "RNF-11",
+      "Recuperación operativa",
+      "Precisar respaldo, restauración y reversión según el entorno elegido. Verificar una restauración en un entorno de prueba.",
+      "Alta",
+      "Continuidad"
+    ],
+    [
+      "RNF-12",
+      "Respuesta ante fallas externas",
+      "Acotar esperas y reintentos de API e IA. Mostrar indisponibilidad y conservar el escenario original.",
+      "Alta",
+      "Resiliencia"
+    ],
+    [
+      "RNF-13",
+      "Respaldo documental verificable",
+      "Enlazar afirmaciones pertinentes con una fuente y página cuando consten. Reconocer evidencia insuficiente y respetar permisos.",
+      "Alta",
+      "Integridad"
+    ],
+    [
+      "RNF-14",
+      "Procesamiento idempotente",
+      "Identificar eventos de importación y n8n mediante claves únicas. Verificar que un reintento no duplique su efecto.",
+      "Alta",
+      "Integridad"
+    ],
+    [
+      "RNF-15",
+      "Permisos sobre fuentes",
+      "Documentar origen y permiso antes de publicar contenido de terceros. Etiquetar el material ficticio de demostración.",
+      "Alta",
+      "Gobernanza"
+    ],
+    [
+      "RNF-16",
+      "Protección de consultas SQL",
+      "Usar parámetros enlazados y una lista permitida para filtros y criterios de orden. Tratar entradas de usuario e IA como datos.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-17",
+      "Presentación segura de contenido",
+      "Presentar notas, fichas y respuestas de IA como texto. Validar enlaces y aplicar cabeceras y política de contenido acordes al entorno.",
+      "Alta",
+      "Seguridad"
+    ],
+    [
+      "RNF-18",
+      "Protección anti-CSRF",
+      "Si la sesión usa cookies, definir HttpOnly, Secure y SameSite aplicable, validar el origen y exigir protección anti-CSRF en cambios de estado.",
+      "Alta",
+      "Seguridad"
+    ]
+  ],
+  "hu": [
+    [
+      "HU-01",
+      "Como visitante, quiero consultar bienes por categoría y filtros para identificar opciones relevantes.",
+      "El catálogo pagina resultados y solo muestra fichas publicadas. Cada ficha indica fuente y fecha de verificación si constan. El historial de precios identifica origen, moneda y fecha.",
+      "Alta",
+      3,
+      "RF-05, RF-06, RF-07, RF-38; RNF-08, RNF-09"
+    ],
+    [
+      "HU-02",
+      "Como comprador, quiero usar una cuenta segura para guardar mi progreso.",
+      "El registro exige aceptación. El inicio válido crea sesión y el cierre invalida su uso. El restablecimiento temporal vence y se usa una sola vez. Las rutas de otro rol quedan denegadas.",
+      "Alta",
+      5,
+      "RF-01 a RF-03, RF-31; RNF-01 a RNF-03, RNF-07, RNF-18"
+    ],
+    [
+      "HU-03",
+      "Como comprador, quiero guardar mis preferencias y favoritos para volver a las opciones que me interesan.",
+      "El presupuesto inválido se rechaza. La cuenta solo modifica sus preferencias y favoritos. Las alertas internas respetan la preferencia de recepción.",
+      "Alta",
+      3,
+      "RF-04, RF-12, RF-17; RNF-06, RNF-09"
+    ],
+    [
+      "HU-04",
+      "Como comprador, quiero simular costos por categoría para decidir con un presupuesto completo.",
+      "El caso ficticio A calcula ₡5.700.000 y B calcula ₡5.400.000. Si falta la reparación de A, el subtotal es ₡4.500.000 y el costo total queda pendiente. AG-06 conserva montos y señala el gasto pendiente.",
+      "Alta",
+      5,
+      "RF-13, RF-23; RNF-03, RNF-12"
+    ],
+    [
+      "HU-05",
+      "Como comprador, quiero ver una afinidad explicable para entender qué tan bien se ajusta un bien a mis necesidades.",
+      "El mismo conjunto de entradas y versión produce el mismo puntaje. Se ven desglose y versión. Con evidencia insuficiente aparece «No evaluable». AG-05 conserva el cálculo.",
+      "Alta",
+      5,
+      "RF-14, RF-22; RNF-03, RNF-12"
+    ],
+    [
+      "HU-06",
+      "Como comprador, quiero comparar bienes para identificar diferencias verificables antes de decidir.",
+      "A y B muestran sus importes en CRC y la diferencia de ₡300.000. Los campos faltantes se identifican. Entre categorías distintas solo se comparan atributos comunes compatibles. AG-07 cita datos autorizados y conserva montos.",
+      "Alta",
+      3,
+      "RF-15, RF-24; RNF-09, RNF-12"
+    ],
+    [
+      "HU-07",
+      "Como comprador, quiero guardar un expediente de evaluación para seguir mis verificaciones.",
+      "El dueño guarda y actualiza notas y tareas. Otra cuenta no obtiene el expediente al usar su identificador. El administrador de CRM ve únicamente la solicitud y los datos compartidos.",
+      "Alta",
+      5,
+      "RF-16; RNF-02, RNF-06, RNF-17"
+    ],
+    [
+      "HU-08",
+      "Como administrador, quiero cargar anuncios de una fuente autorizada para preparar fichas verificables.",
+      "Un archivo autorizado pasa por vista previa y revisión. Un archivo inválido se rechaza sin publicar. AG-02 devuelve borradores con página y campos por revisar; aprobar y publicar son acciones auditadas.",
+      "Alta",
+      8,
+      "RF-08 a RF-10, RF-19, RF-36; RNF-03, RNF-14, RNF-15"
+    ],
+    [
+      "HU-09",
+      "Como administrador, quiero identificar duplicados posibles para evitar anuncios repetidos.",
+      "Una coincidencia muestra los registros y sus campos comunes. Los originales se conservan hasta una resolución humana registrada.",
+      "Alta",
+      3,
+      "RF-11; RNF-14, RNF-16"
+    ],
+    [
+      "HU-10",
+      "Como comprador, quiero buscar con lenguaje natural para encontrar bienes sin conocer todos los filtros.",
+      "AG-01 devuelve filtros válidos, muestra los filtros aplicados y consulta el catálogo mediante parámetros enlazados. Una salida no válida recibe un mensaje y permite buscar con filtros.",
+      "Alta",
+      5,
+      "RF-18; RNF-03, RNF-12, RNF-16"
+    ],
+    [
+      "HU-11",
+      "Como comprador, quiero consultar un documento autorizado para entender sus condiciones.",
+      "AG-03 vincula la respuesta con documento y página cuando consten. Si falta respaldo, lo indica. Un archivo de otra cuenta queda excluido de la recuperación y de la respuesta.",
+      "Alta",
+      8,
+      "RF-20, RF-37; RNF-06, RNF-13, RNF-17"
+    ],
+    [
+      "HU-12",
+      "Como comprador, quiero obtener observaciones de una imagen autorizada para preparar una inspección.",
+      "AG-04 describe rasgos visibles, avisa si la imagen es insuficiente y distingue observación de condición mecánica o estructural.",
+      "Alta",
+      5,
+      "RF-21; RNF-06, RNF-12, RNF-15"
+    ],
+    [
+      "HU-13",
+      "Como comprador, quiero que Remy me ayude a organizar una evaluación para saber qué revisar después.",
+      "AG-08 usa herramientas autorizadas para el contexto propio. Un intento de publicación, pago o acceso ajeno se rechaza y el uso permitido queda en bitácora.",
+      "Alta",
+      8,
+      "RF-25, RF-26; RNF-05, RNF-06, RNF-10"
+    ],
+    [
+      "HU-14",
+      "Como administrador, quiero consultar las ejecuciones de n8n para resolver fallas.",
+      "La vista identifica los tres procesos y muestra estado y fecha. Un reintento del mismo evento conserva un único resultado. Las entradas no incluyen secretos.",
+      "Alta",
+      8,
+      "RF-28 a RF-30; RNF-05, RNF-10, RNF-14"
+    ],
+    [
+      "HU-15",
+      "Como usuario, quiero consultar, rectificar o pedir la baja de mis datos para ejercer mis derechos.",
+      "Desde el perfil se ven las políticas y la solicitud. La baja exige reautenticación y confirmación. Guarda folio y estado, verifica el tratamiento aprobado y notifica al usuario al finalizar.",
+      "Alta",
+      5,
+      "RF-31 a RF-33; RNF-02, RNF-06, RNF-18"
+    ],
+    [
+      "HU-16",
+      "Como auditor, quiero consultar bitácoras en modo lectura para verificar cambios y ejecuciones.",
+      "El rol ve registros permitidos, sin credenciales ni contenido privado innecesario. La API rechaza editar y las acciones auditadas tienen fecha y resultado.",
+      "Alta",
+      3,
+      "RF-26, RF-34, RF-36; RNF-05, RNF-10"
+    ],
+    [
+      "HU-17",
+      "Como comprador, quiero ver el tipo de cambio para comprender montos en CRC y USD.",
+      "El dato viene de una API real elegida con fuente y fecha. Ante una falla se conserva la moneda original y se informa el estado.",
+      "Alta",
+      3,
+      "RF-27; RNF-07, RNF-12"
+    ],
+    [
+      "HU-18",
+      "Como comprador, quiero pedir seguimiento sobre un bien para recibir ayuda con mi evaluación.",
+      "La ficha permite iniciar una solicitud de forma explícita. Antes de confirmar se ven los datos compartidos. Se crea «Solicitud recibida» y el comprador solo puede ver sus propios estados.",
+      "Alta",
+      3,
+      "RF-39; RNF-02, RNF-06, RNF-18"
+    ],
+    [
+      "HU-19",
+      "Como administrador, quiero revisar y actualizar una solicitud para mantener su seguimiento.",
+      "El tablero muestra etapas y permite abrir la ficha. Un cambio válido confirmado registra etapa anterior, etapa nueva, responsable y fecha. Una transición no permitida se rechaza.",
+      "Alta",
+      5,
+      "RF-40, RF-36; RNF-02, RNF-03, RNF-10"
+    ],
+    [
+      "HU-20",
+      "Como administrador, quiero ver qué atender hoy y el estado agregado del CRM para priorizar el trabajo.",
+      "El tablero identifica vencimientos y solicitudes sin revisar. Con datos de prueba, los conteos por etapa y el tiempo hasta primera atención coinciden con el historial. El resumen muestra cifras agregadas.",
+      "Media",
+      3,
+      "RF-41; RNF-06, RNF-08, RNF-09"
+    ],
+    [
+      "HU-21",
+      "Como administrador, quiero un panel con acciones permitidas para coordinar la revisión de datos.",
+      "El panel enlaza fuentes, publicación, usuarios y workflows según el rol. Los accesos directos a recursos restringidos se comprueban en el servidor.",
+      "Alta",
+      3,
+      "RF-03, RF-34, RF-36; RNF-02, RNF-09"
+    ],
+    [
+      "HU-22",
+      "Como persona evaluadora, quiero acceder a la aplicación publicada y a la evidencia técnica para comprobar su funcionamiento.",
+      "Frontend y API responden con HTTPS. La base permanece protegida. La guía de ejecución documenta un comando de pruebas, respaldos y restauración; se adjunta evidencia de la verificación en el entorno elegido.",
+      "Alta",
+      5,
+      "RF-35; RNF-04, RNF-05, RNF-07, RNF-11"
+    ]
+  ],
+  "trace": [
+    [
+      "HU-01",
+      "RF-05, RF-06, RF-07, RF-38; RNF-08, RNF-09",
+      "UX-01, UX-08 a UX-11"
+    ],
+    [
+      "HU-02",
+      "RF-01 a RF-03, RF-31; RNF-01 a RNF-03, RNF-07, RNF-18",
+      "UX-02 a UX-04"
+    ],
+    [
+      "HU-03",
+      "RF-04, RF-12, RF-17; RNF-06, RNF-09",
+      "UX-05, UX-15, UX-16"
+    ],
+    [
+      "HU-04",
+      "RF-13, RF-23; RNF-03, RNF-12",
+      "UX-12, UX-24"
+    ],
+    [
+      "HU-05",
+      "RF-14, RF-22; RNF-03, RNF-12",
+      "UX-23"
+    ],
+    [
+      "HU-06",
+      "RF-15, RF-24; RNF-09, RNF-12",
+      "UX-13, UX-25"
+    ],
+    [
+      "HU-07",
+      "RF-16; RNF-02, RNF-06, RNF-17",
+      "UX-14"
+    ],
+    [
+      "HU-08",
+      "RF-08 a RF-10, RF-19, RF-36; RNF-03, RNF-14, RNF-15",
+      "UX-17, UX-18, UX-20"
+    ],
+    [
+      "HU-09",
+      "RF-11; RNF-14, RNF-16",
+      "UX-18"
+    ],
+    [
+      "HU-10",
+      "RF-18; RNF-03, RNF-12, RNF-16",
+      "UX-19"
+    ],
+    [
+      "HU-11",
+      "RF-20, RF-37; RNF-06, RNF-13, RNF-17",
+      "UX-14, UX-21"
+    ],
+    [
+      "HU-12",
+      "RF-21; RNF-06, RNF-12, RNF-15",
+      "UX-22"
+    ],
+    [
+      "HU-13",
+      "RF-25, RF-26; RNF-05, RNF-06, RNF-10",
+      "UX-26"
+    ],
+    [
+      "HU-14",
+      "RF-28 a RF-30; RNF-05, RNF-10, RNF-14",
+      "UX-28"
+    ],
+    [
+      "HU-15",
+      "RF-31 a RF-33; RNF-02, RNF-06, RNF-18",
+      "UX-29 a UX-31"
+    ],
+    [
+      "HU-16",
+      "RF-26, RF-34, RF-36; RNF-05, RNF-10",
+      "UX-07, UX-28"
+    ],
+    [
+      "HU-17",
+      "RF-27; RNF-07, RNF-12",
+      "UX-27"
+    ],
+    [
+      "HU-18",
+      "RF-39; RNF-02, RNF-06, RNF-18",
+      "UX-34"
+    ],
+    [
+      "HU-19",
+      "RF-40, RF-36; RNF-02, RNF-03, RNF-10",
+      "UX-33, UX-35"
+    ],
+    [
+      "HU-20",
+      "RF-41; RNF-06, RNF-08, RNF-09",
+      "UX-33"
+    ],
+    [
+      "HU-21",
+      "RF-03, RF-34, RF-36; RNF-02, RNF-09",
+      "UX-06, UX-32"
+    ],
+    [
+      "HU-22",
+      "RF-35; RNF-04, RNF-05, RNF-07, RNF-11",
+      "Verificación técnica"
+    ]
+  ]
+}

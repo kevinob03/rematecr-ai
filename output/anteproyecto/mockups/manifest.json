@@ -1,0 +1,390 @@
+{
+  "desktop": [
+    {
+      "id": "UX-01",
+      "title": "Catálogo",
+      "role": "Público",
+      "filename": "UX-01.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-02",
+      "title": "Iniciar sesión",
+      "role": "Todos",
+      "filename": "UX-02.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-03",
+      "title": "Crear una cuenta",
+      "role": "Comprador",
+      "filename": "UX-03.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-04",
+      "title": "Recuperar contraseña",
+      "role": "Todos",
+      "filename": "UX-04.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-05",
+      "title": "Mi panel",
+      "role": "Comprador",
+      "filename": "UX-05.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-06",
+      "title": "Administración",
+      "role": "Administrador",
+      "filename": "UX-06.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-07",
+      "title": "Panel de auditoría",
+      "role": "Auditor",
+      "filename": "UX-07.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-08",
+      "title": "Búsqueda y filtros",
+      "role": "Público y comprador",
+      "filename": "UX-08.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-09",
+      "title": "Detalle de inmueble",
+      "role": "Público y comprador",
+      "filename": "UX-09.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-10",
+      "title": "Detalle de vehículo",
+      "role": "Público y comprador",
+      "filename": "UX-10.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-11",
+      "title": "Detalle de otro bien",
+      "role": "Público y comprador",
+      "filename": "UX-11.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-12",
+      "title": "Simulador de costos",
+      "role": "Comprador",
+      "filename": "UX-12.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-13",
+      "title": "Comparación de bienes",
+      "role": "Comprador",
+      "filename": "UX-13.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-14",
+      "title": "Mis expedientes",
+      "role": "Comprador",
+      "filename": "UX-14.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-15",
+      "title": "Perfil y preferencias",
+      "role": "Comprador",
+      "filename": "UX-15.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-16",
+      "title": "Favoritos y alertas",
+      "role": "Comprador",
+      "filename": "UX-16.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-17",
+      "title": "Fuentes e importación",
+      "role": "Administrador",
+      "filename": "UX-17.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-18",
+      "title": "Publicación y calidad",
+      "role": "Administrador",
+      "filename": "UX-18.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-19",
+      "title": "Búsqueda en lenguaje natural",
+      "role": "Comprador",
+      "filename": "UX-19.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-20",
+      "title": "Extracción de PDF",
+      "role": "Administrador",
+      "filename": "UX-20.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-21",
+      "title": "Consulta documental",
+      "role": "Comprador y administrador",
+      "filename": "UX-21.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-22",
+      "title": "Análisis visual",
+      "role": "Comprador y administrador",
+      "filename": "UX-22.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-23",
+      "title": "Explicación de RemateScore",
+      "role": "Comprador",
+      "filename": "UX-23.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-24",
+      "title": "Interpretación de costos",
+      "role": "Comprador",
+      "filename": "UX-24.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-25",
+      "title": "Comparación explicada",
+      "role": "Comprador",
+      "filename": "UX-25.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-26",
+      "title": "Remy",
+      "role": "Comprador",
+      "filename": "UX-26.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-27",
+      "title": "Integraciones y tipo de cambio",
+      "role": "Comprador y administrador",
+      "filename": "UX-27.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-28",
+      "title": "Registro de actividad",
+      "role": "Administrador y auditor",
+      "filename": "UX-28.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-29",
+      "title": "Política de privacidad",
+      "role": "Todos",
+      "filename": "UX-29.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-30",
+      "title": "Términos y condiciones",
+      "role": "Todos",
+      "filename": "UX-30.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-31",
+      "title": "Eliminar mi cuenta",
+      "role": "Comprador",
+      "filename": "UX-31.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-32",
+      "title": "Usuarios y roles",
+      "role": "Administrador",
+      "filename": "UX-32.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-33",
+      "title": "Tablero de seguimiento",
+      "role": "Administrador",
+      "filename": "UX-33.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-34",
+      "title": "Solicitar seguimiento",
+      "role": "Comprador",
+      "filename": "UX-34.png",
+      "width": 1440,
+      "height": 860
+    },
+    {
+      "id": "UX-35",
+      "title": "Ficha de seguimiento",
+      "role": "Administrador",
+      "filename": "UX-35.png",
+      "width": 1440,
+      "height": 860
+    }
+  ],
+  "mobile": [
+    {
+      "id": "UX-01",
+      "title": "Catálogo",
+      "role": "Público",
+      "filename": "UX-01-movil.png",
+      "width": 390,
+      "height": 880
+    },
+    {
+      "id": "UX-02",
+      "title": "Iniciar sesión",
+      "role": "Todos",
+      "filename": "UX-02-movil.png",
+      "width": 390,
+      "height": 815
+    },
+    {
+      "id": "UX-03",
+      "title": "Crear una cuenta",
+      "role": "Comprador",
+      "filename": "UX-03-movil.png",
+      "width": 390,
+      "height": 819
+    },
+    {
+      "id": "UX-05",
+      "title": "Mi panel",
+      "role": "Comprador",
+      "filename": "UX-05-movil.png",
+      "width": 390,
+      "height": 815
+    },
+    {
+      "id": "UX-08",
+      "title": "Búsqueda y filtros",
+      "role": "Público y comprador",
+      "filename": "UX-08-movil.png",
+      "width": 390,
+      "height": 920
+    },
+    {
+      "id": "UX-10",
+      "title": "Detalle de vehículo",
+      "role": "Público y comprador",
+      "filename": "UX-10-movil.png",
+      "width": 390,
+      "height": 1081
+    },
+    {
+      "id": "UX-12",
+      "title": "Simulador de costos",
+      "role": "Comprador",
+      "filename": "UX-12-movil.png",
+      "width": 390,
+      "height": 851
+    },
+    {
+      "id": "UX-13",
+      "title": "Comparación de bienes",
+      "role": "Comprador",
+      "filename": "UX-13-movil.png",
+      "width": 390,
+      "height": 815
+    },
+    {
+      "id": "UX-14",
+      "title": "Mis expedientes",
+      "role": "Comprador",
+      "filename": "UX-14-movil.png",
+      "width": 390,
+      "height": 815
+    },
+    {
+      "id": "UX-26",
+      "title": "Remy",
+      "role": "Comprador",
+      "filename": "UX-26-movil.png",
+      "width": 390,
+      "height": 896
+    },
+    {
+      "id": "UX-31",
+      "title": "Eliminar mi cuenta",
+      "role": "Comprador",
+      "filename": "UX-31-movil.png",
+      "width": 390,
+      "height": 815
+    },
+    {
+      "id": "UX-33",
+      "title": "Tablero de seguimiento",
+      "role": "Administrador",
+      "filename": "UX-33-movil.png",
+      "width": 390,
+      "height": 892
+    },
+    {
+      "id": "UX-34",
+      "title": "Solicitar seguimiento",
+      "role": "Comprador",
+      "filename": "UX-34-movil.png",
+      "width": 390,
+      "height": 815
+    }
+  ]
+}
