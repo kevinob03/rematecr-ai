@@ -30,7 +30,7 @@ export function createImportsModel(db){
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
     async history({page=1,limit=20}={}){
-      const {rows}=await db.query(`SELECT b.id,b.source_name AS "sourceName",b.created_at AS "createdAt",
+      const {rows}=await db.query(`SELECT b.id,b.source_name AS "sourceName",b.status,b.created_at AS "createdAt",
           count(r.id)::int AS "totalRows",
           (count(r.id) FILTER (WHERE r.status='pending_review'))::int AS "pendingRows",
           (count(r.id) FILTER (WHERE r.status='published'))::int AS "publishedRows",
@@ -42,7 +42,7 @@ export function createImportsModel(db){
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
     async batchDetails(batchId){
-      const batch=await db.query(`SELECT id,source_name AS "sourceName",created_at AS "createdAt"
+      const batch=await db.query(`SELECT id,source_name AS "sourceName",status,created_at AS "createdAt"
         FROM import_batches WHERE id=$1`,[batchId]);
       if(!batch.rows[0]) return null;
       const {rows}=await db.query(`SELECT r.id,r.row_number AS "rowNumber",r.title,r.category,r.summary,r.price,
@@ -71,6 +71,8 @@ export function createImportsModel(db){
         }
         await tx.query('UPDATE import_rows SET status=$2,asset_id=$3,reviewed_by=$4,reviewed_at=now(),review_note=$5 WHERE id=$1',
           [id,approve?'published':'rejected',assetId,actorId,reason??null]);
+        const {rows:pending}=await tx.query("SELECT 1 FROM import_rows WHERE batch_id=$1 AND status='pending_review' LIMIT 1",[row.batch_id]);
+        if(!pending.length) await tx.query("UPDATE import_batches SET status='reviewed' WHERE id=$1",[row.batch_id]);
         return {id,status:approve?'published':'rejected',assetId,reviewNote:reason??null};
       });
     },

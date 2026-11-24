@@ -71,7 +71,7 @@ export function ImportReview(){
     {history.pending?<Loading label="Cargando historial"/>:history.error?<Problem error={history.error} retry={history.retry}/>:history.data.items.length===0?<p>Aún no hay importaciones registradas.</p>:history.data.items.map(batch=>
       <article className="card form-card stack" key={batch.id}>
         <h3>{batch.sourceName}</h3>
-        <p>Recibida {new Date(batch.createdAt).toLocaleString('es-CR')}</p>
+        <p>{batch.status==='reviewed'?'Resuelta':'En revisión'} · recibida {new Date(batch.createdAt).toLocaleString('es-CR')}</p>
         <p>{batch.totalRows} filas · {batch.pendingRows} pendientes · {batch.publishedRows} publicadas · {batch.rejectedRows} rechazadas</p>
         {batch.lastReviewedAt&&<small>Última revisión: {new Date(batch.lastReviewedAt).toLocaleString('es-CR')}</small>}
         <button type="button" className="button secondary" aria-expanded={openBatch===batch.id}
