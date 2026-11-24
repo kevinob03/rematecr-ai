@@ -29,6 +29,18 @@ export function createImportsModel(db){
         [limit+1,(page-1)*limit]);
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
+    async history({page=1,limit=20}={}){
+      const {rows}=await db.query(`SELECT b.id,b.source_name AS "sourceName",b.created_at AS "createdAt",
+          count(r.id)::int AS "totalRows",
+          (count(r.id) FILTER (WHERE r.status='pending_review'))::int AS "pendingRows",
+          (count(r.id) FILTER (WHERE r.status='published'))::int AS "publishedRows",
+          (count(r.id) FILTER (WHERE r.status='rejected'))::int AS "rejectedRows",
+          max(r.reviewed_at) AS "lastReviewedAt"
+        FROM import_batches b LEFT JOIN import_rows r ON r.batch_id=b.id
+        GROUP BY b.id ORDER BY b.created_at DESC,b.id DESC LIMIT $1 OFFSET $2`,
+        [limit+1,(page-1)*limit]);
+      return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
+    },
     review(id,actorId,approve){
       return db.transaction(async tx=>{
         const {rows}=await tx.query(`SELECT r.*,b.source_name FROM import_rows r JOIN import_batches b ON b.id=r.batch_id

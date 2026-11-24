@@ -5,6 +5,7 @@ import {Loading,PageHeading,Pagination,Problem} from '../components/ui.jsx'
 
 export function ImportReview(){
   const [page,setPage]=useState(1)
+  const [historyPage,setHistoryPage]=useState(1)
   const [csv,setCsv]=useState('title,category,summary,price,sourceUrl\n')
   const [sourceName,setSourceName]=useState('')
   const [eventId,setEventId]=useState(()=>crypto.randomUUID())
@@ -12,6 +13,7 @@ export function ImportReview(){
   const [message,setMessage]=useState('')
   const [error,setError]=useState('')
   const pending=useRemote('/imports/pending?page='+page)
+  const history=useRemote('/imports/history?page='+historyPage)
   async function loadCsv(event){
     const file=event.target.files?.[0]
     if(!file)return
@@ -24,13 +26,13 @@ export function ImportReview(){
     try{
       const result=await api('/imports/csv',{method:'POST',body:{eventId,sourceName,csv}})
       setMessage(`Importación recibida: ${result.rows.length} filas en revisión. ${result.replay?'Se reconoció como reintento.':''}`)
-      setEventId(crypto.randomUUID());setPage(1);pending.retry()
+      setEventId(crypto.randomUUID());setPage(1);setHistoryPage(1);pending.retry();history.retry()
     }catch(problem){setError(problem.message)}
     finally{setBusy(false)}
   }
   async function review(id,approve){
     setBusy(true);setError('')
-    try{await api('/imports/'+id,{method:'PATCH',body:{approve}});pending.retry()}
+    try{await api('/imports/'+id,{method:'PATCH',body:{approve}});pending.retry();history.retry()}
     catch(problem){setError(problem.message)}
     finally{setBusy(false)}
   }
@@ -44,7 +46,7 @@ export function ImportReview(){
     </form>
     {message&&<p role="status">{message}</p>}{error&&<p role="alert" className="inline-error">{error}</p>}
     <h2>Filas pendientes</h2>
-    {pending.pending?<Loading label="Cargando filas"/>:pending.error?<Problem error={pending.error} retry={pending.retry}/>:pending.data.items.map(row=>
+    {pending.pending?<Loading label="Cargando filas"/>:pending.error?<Problem error={pending.error} retry={pending.retry}/>:pending.data.items.length===0?<p>No hay filas pendientes de revisión.</p>:pending.data.items.map(row=>
       <article className="card form-card stack" key={row.id}>
         <h3>{row.title}</h3><p>{row.category} · ₡{row.price.toLocaleString('es-CR')} · {row.sourceName}</p>
         <p>{row.summary}</p><a href={row.sourceUrl} target="_blank" rel="noreferrer">Revisar fuente original</a>
@@ -52,6 +54,15 @@ export function ImportReview(){
           <button className="button secondary" disabled={busy} onClick={()=>review(row.id,false)}>Rechazar</button></div>
       </article>)}
     {!pending.pending&&!pending.error&&<Pagination page={page} nextPage={pending.data.nextPage} onChange={setPage}/>}
+    <h2>Importaciones recientes</h2>
+    {history.pending?<Loading label="Cargando historial"/>:history.error?<Problem error={history.error} retry={history.retry}/>:history.data.items.length===0?<p>Aún no hay importaciones registradas.</p>:history.data.items.map(batch=>
+      <article className="card form-card stack" key={batch.id}>
+        <h3>{batch.sourceName}</h3>
+        <p>Recibida {new Date(batch.createdAt).toLocaleString('es-CR')}</p>
+        <p>{batch.totalRows} filas · {batch.pendingRows} pendientes · {batch.publishedRows} publicadas · {batch.rejectedRows} rechazadas</p>
+        {batch.lastReviewedAt&&<small>Última revisión: {new Date(batch.lastReviewedAt).toLocaleString('es-CR')}</small>}
+      </article>)}
+    {!history.pending&&!history.error&&<Pagination page={historyPage} nextPage={history.data.nextPage} onChange={setHistoryPage}/>}
   </>
 }
 

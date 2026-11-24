@@ -14,6 +14,7 @@ const rowSchema=z.object({
 export function createImportService(model){
   return {
     pending:model.pending,
+    history:model.history,
     review:model.review,
     async receive({eventId,sourceName,actorId,csv}){
       if(Buffer.byteLength(csv)>500_000) throw new AppError(413,'CSV_TOO_LARGE','El CSV supera 500 KB.');

@@ -8,16 +8,17 @@ import { createAuthController } from '../controllers/auth.js';
 import { createCrmController } from '../controllers/crm.js';
 import { createHealthController } from '../controllers/health.js';
 import { createSimulationController } from '../controllers/simulations.js';
+import { createImportsController } from '../controllers/imports.js';
 import { limitLogin } from '../middlewares/request.js';
 import { validate } from '../middlewares/validate.js';
 import { schemas } from './schemas.js';
-import { AppError } from '../services/app-error.js';
 
 export function createApiRouter({ db, config, logger, auth, assets, audit, crm, imports, preferences, simulate, requireRoles, configureRoutes }) {
   const router = Router();
   const authController = createAuthController(auth, config);
   const assetController = createAssetController(assets);
   const crmController = createCrmController(crm);
+  const importsController = createImportsController(imports);
 
   router.get('/health', createHealthController(db, logger));
   router.get('/policies', authController.policies);
@@ -39,15 +40,10 @@ export function createApiRouter({ db, config, logger, auth, assets, audit, crm, 
   router.post('/auth/logout', authController.logout);
 
   router.get('/assets', validate({ query: schemas.assets }), assetController.list);
-  router.post('/imports/csv',requireRoles('admin'),validate({body:schemas.csvImport}),async(req,res)=>{
-    res.status(202).json(await imports.receive({...req.validated.body,actorId:req.user.id}));
-  });
-  router.get('/imports/pending',requireRoles('admin'),validate({query:schemas.pagination}),async(req,res)=>res.json(await imports.pending(req.validated.query)));
-  router.patch('/imports/:id',requireRoles('admin'),validate({params:schemas.id,body:schemas.importReview}),async(req,res)=>{
-    const result=await imports.review(req.validated.params.id,req.user.id,req.validated.body.approve);
-    if(!result) throw new AppError(404,'IMPORT_ROW_NOT_FOUND','No encontramos esa fila pendiente.');
-    res.json({row:result});
-  });
+  router.post('/imports/csv',requireRoles('admin'),validate({body:schemas.csvImport}),importsController.receive);
+  router.get('/imports/pending',requireRoles('admin'),validate({query:schemas.pagination}),importsController.pending);
+  router.get('/imports/history',requireRoles('admin'),validate({query:schemas.pagination}),importsController.history);
+  router.patch('/imports/:id',requireRoles('admin'),validate({params:schemas.id,body:schemas.importReview}),importsController.review);
   const favorites = createFavoritesController(assets);
   router.get('/favorites', requireRoles('buyer'), validate({ query: schemas.pagination }), favorites.list);
   router.route('/favorites/:id').all(requireRoles('buyer'), validate({ params: schemas.id }))
