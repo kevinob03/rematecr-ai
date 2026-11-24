@@ -41,6 +41,16 @@ export function createImportsModel(db){
         [limit+1,(page-1)*limit]);
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
+    async batchDetails(batchId){
+      const batch=await db.query(`SELECT id,source_name AS "sourceName",created_at AS "createdAt"
+        FROM import_batches WHERE id=$1`,[batchId]);
+      if(!batch.rows[0]) return null;
+      const {rows}=await db.query(`SELECT r.id,r.row_number AS "rowNumber",r.title,r.category,r.summary,r.price,
+          r.source_url AS "sourceUrl",r.status,r.reviewed_at AS "reviewedAt",u.name AS "reviewedBy",r.asset_id AS "assetId"
+        FROM import_rows r LEFT JOIN users u ON u.id=r.reviewed_by
+        WHERE r.batch_id=$1 ORDER BY r.row_number`,[batchId]);
+      return {...batch.rows[0],items:rows};
+    },
     review(id,actorId,approve){
       return db.transaction(async tx=>{
         const {rows}=await tx.query(`SELECT r.*,b.source_name FROM import_rows r JOIN import_batches b ON b.id=r.batch_id

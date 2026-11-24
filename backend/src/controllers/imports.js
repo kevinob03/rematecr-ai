@@ -11,6 +11,11 @@ export function createImportsController(imports){
     async history(req,res){
       res.json(await imports.history(req.validated.query));
     },
+    async batchDetails(req,res){
+      const batch=await imports.batchDetails(req.validated.params.id);
+      if(!batch) throw new AppError(404,'IMPORT_BATCH_NOT_FOUND','No encontramos esa importación.');
+      res.json({batch});
+    },
     async review(req,res){
       const result=await imports.review(req.validated.params.id,req.user.id,req.validated.body.approve);
       if(!result) throw new AppError(404,'IMPORT_ROW_NOT_FOUND','No encontramos esa fila pendiente.');

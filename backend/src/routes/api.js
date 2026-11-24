@@ -43,6 +43,7 @@ export function createApiRouter({ db, config, logger, auth, assets, audit, crm, 
   router.post('/imports/csv',requireRoles('admin'),validate({body:schemas.csvImport}),importsController.receive);
   router.get('/imports/pending',requireRoles('admin'),validate({query:schemas.pagination}),importsController.pending);
   router.get('/imports/history',requireRoles('admin'),validate({query:schemas.pagination}),importsController.history);
+  router.get('/imports/batches/:id',requireRoles('admin'),validate({params:schemas.id}),importsController.batchDetails);
   router.patch('/imports/:id',requireRoles('admin'),validate({params:schemas.id,body:schemas.importReview}),importsController.review);
   const favorites = createFavoritesController(assets);
   router.get('/favorites', requireRoles('buyer'), validate({ query: schemas.pagination }), favorites.list);

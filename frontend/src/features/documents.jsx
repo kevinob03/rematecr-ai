@@ -6,6 +6,7 @@ import {Loading,PageHeading,Pagination,Problem} from '../components/ui.jsx'
 export function ImportReview(){
   const [page,setPage]=useState(1)
   const [historyPage,setHistoryPage]=useState(1)
+  const [openBatch,setOpenBatch]=useState(null)
   const [csv,setCsv]=useState('title,category,summary,price,sourceUrl\n')
   const [sourceName,setSourceName]=useState('')
   const [eventId,setEventId]=useState(()=>crypto.randomUUID())
@@ -14,6 +15,7 @@ export function ImportReview(){
   const [error,setError]=useState('')
   const pending=useRemote('/imports/pending?page='+page)
   const history=useRemote('/imports/history?page='+historyPage)
+  const batchDetails=useRemote(openBatch?'/imports/batches/'+openBatch:null)
   async function loadCsv(event){
     const file=event.target.files?.[0]
     if(!file)return
@@ -32,7 +34,7 @@ export function ImportReview(){
   }
   async function review(id,approve){
     setBusy(true);setError('')
-    try{await api('/imports/'+id,{method:'PATCH',body:{approve}});pending.retry();history.retry()}
+    try{await api('/imports/'+id,{method:'PATCH',body:{approve}});pending.retry();history.retry();batchDetails.retry()}
     catch(problem){setError(problem.message)}
     finally{setBusy(false)}
   }
@@ -61,6 +63,18 @@ export function ImportReview(){
         <p>Recibida {new Date(batch.createdAt).toLocaleString('es-CR')}</p>
         <p>{batch.totalRows} filas · {batch.pendingRows} pendientes · {batch.publishedRows} publicadas · {batch.rejectedRows} rechazadas</p>
         {batch.lastReviewedAt&&<small>Última revisión: {new Date(batch.lastReviewedAt).toLocaleString('es-CR')}</small>}
+        <button type="button" className="button secondary" aria-expanded={openBatch===batch.id}
+          onClick={()=>setOpenBatch(openBatch===batch.id?null:batch.id)}>
+          {openBatch===batch.id?'Ocultar detalle':'Ver decisiones por fila'}
+        </button>
+        {openBatch===batch.id&&<div className="stack" aria-live="polite">
+          {batchDetails.pending?<Loading label="Cargando detalle"/>:batchDetails.error?<Problem error={batchDetails.error} retry={batchDetails.retry}/>:batchDetails.data?.batch.items.map(item=><div className="card" key={item.id}>
+            <strong>Fila {item.rowNumber}: {item.title}</strong>
+            <p>{item.category} · ₡{item.price.toLocaleString('es-CR')} · {item.status==='published'?'Publicada':item.status==='rejected'?'Rechazada':'Pendiente de revisión'}</p>
+            <p>{item.summary||'Sin resumen'}</p>
+            <a href={item.sourceUrl} target="_blank" rel="noreferrer">Abrir fuente original</a>
+            {item.reviewedAt&&<small>Revisada por {item.reviewedBy||'cuenta no disponible'} el {new Date(item.reviewedAt).toLocaleString('es-CR')}</small>}
+          </div>)}</div>}
       </article>)}
     {!history.pending&&!history.error&&<Pagination page={historyPage} nextPage={history.data.nextPage} onChange={setHistoryPage}/>}
   </>
