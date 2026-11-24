@@ -1,5 +1,7 @@
 # RemateCR AI
 
+El checklist de lo implementado y lo pendiente está en [Estado del proyecto](docs/estado-del-proyecto.md).
+
 Proyecto Full Stack de FWD Costa Rica para consultar y evaluar bienes en remate y adjudicados. El catálogo, el simulador de costos y el CRM de seguimiento forman parte de la misma aplicación.
 
 La aplicación local incluye catálogo y ficha con procedencia, inicio y cierre de sesión, comparador de costos, solicitudes de seguimiento y auditoría agregada. Contiene los dos vehículos ficticios del anteproyecto. El filtro de inmuebles muestra un estado vacío hasta contar con datos autorizados.
