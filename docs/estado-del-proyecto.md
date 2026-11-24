@@ -10,7 +10,7 @@ Revisado el 24 de noviembre de 2026. Las casillas marcadas describen funciones q
 - [x] Simulador y comparación de costos; favoritos y preferencias del comprador.
 - [x] CRM de seguimiento con etapas y auditoría agregada. La baja aprobada elimina datos individuales y conserva únicamente estadísticas anónimas.
 - [x] Importación CSV para el administrador: validación, revisión fila por fila, bloqueo por posible duplicado e historial con estado de lote, revisor, fecha y motivo obligatorio de rechazo.
-- [x] Revisión de PDFs autorizados y consultas sobre páginas aprobadas, sujetas a proveedor de IA.
+- [x] Revisión de PDFs autorizados y consultas sobre páginas aprobadas, sujetas a proveedor de IA. Los rechazos requieren motivo y quedan en el historial administrativo.
 - [x] AG-01, AG-02, AG-03 y AG-05–AG-08 integrados en la aplicación. AG-05 mantiene sus pesos como propuesta y responde «No evaluable» cuando no hay evidencia suficiente.
 - [x] Exportación del workflow WF-02 en `n8n/workflows/WF-02_Alertas.json`.
 - [x] Anteproyecto, documentos técnicos, manual de tareas y material visual en `output/`.

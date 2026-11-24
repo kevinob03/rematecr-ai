@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { repositoryRoot } from '../config/env.js';
 import { z } from 'zod';
 import { createSearchController } from '../controllers/search.js';
+import { createDocumentsController } from '../controllers/documents.js';
 import { createSearchAgent } from '../services/agents/search/search.js';
 import { createScoreAgent } from '../services/agents/score/score.js';
 import { createScoreController } from '../controllers/score.js';
@@ -43,6 +44,7 @@ export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis
     });
 
     const documents = createDocumentsModel(db);
+    const documentsController=createDocumentsController(documents);
     const extractor = createExtractAgent({config,documents,executions,storageDir,fetchImpl});
     router.get('/capabilities', (_req, res) => res.json({ financeAgent: Boolean(config), comparisonAgent: Boolean(config), searchAgent: Boolean(config), scoreAgent: true, extractAgent: Boolean(config), ragAgent: Boolean(config), remyAgent: Boolean(config) }));
     router.post('/agents/remy', requireRoles('buyer'), limit,
@@ -61,18 +63,13 @@ export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis
       const result=await extractor({actorId:req.user.id,name,buffer:req.body});
       res.status(201).json({document:result});
     });
-    router.get('/document-drafts', requireRoles('admin'), validate({query:schemas.pagination}), async(req,res)=>{
-      res.json(await documents.list(req.validated.query));
-    });
+    router.get('/document-drafts', requireRoles('admin'), validate({query:schemas.pagination}), documentsController.pending);
+    router.get('/document-drafts/history', requireRoles('admin'), validate({query:schemas.pagination}), documentsController.history);
     router.post('/agents/rag', requireRoles('buyer','admin'),
       validate({body:z.strictObject({query:z.string().trim().min(3).max(500)})}),
       createRagController(createRagAgent({config,documents,executions,fetchImpl})));
     router.patch('/document-drafts/:id', requireRoles('admin'),
-      validate({params:schemas.id,body:schemas.documentReview}), async(req,res)=>{
-        const result=await documents.review(req.validated.params.id,req.user.id,req.validated.body.status);
-        if(!result) throw new AppError(404,'DRAFT_NOT_FOUND','No encontramos un borrador pendiente.');
-        res.json({document:result});
-      });
+      validate({params:schemas.id,body:schemas.documentReview}), documentsController.review);
     router.post('/agents/search', requireRoles('buyer'),
       validate({ body: z.strictObject({ query: z.string().trim().min(1).max(300) }) }), limit,
       createSearchController(createSearchAgent({ config, executions, fetchImpl })));

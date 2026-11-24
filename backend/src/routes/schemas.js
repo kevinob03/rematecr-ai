@@ -26,7 +26,10 @@ export const schemas = {
     reason:z.string().trim().min(1).max(500).optional(),
   }).refine(({approve,reason})=>approve||Boolean(reason),{message:'Indicá el motivo del rechazo.',path:['reason']}),
   workflowEvent: z.strictObject({ eventId: z.string().regex(/^[a-zA-Z0-9:_-]{1,120}$/) }),
-  documentReview: z.strictObject({status:z.enum(['approved','rejected'])}),
+  documentReview: z.strictObject({
+    status:z.enum(['approved','rejected']),
+    reason:z.string().trim().min(1).max(500).optional(),
+  }).refine(({status,reason})=>status!=='rejected'||Boolean(reason),{message:'Indicá el motivo del rechazo.',path:['reason']}),
   preferences: z.strictObject({
     budget: z.number().int().min(0).max(2147483647).nullable(),
     categories: z.array(z.enum(['vehicle','property'])).max(2).refine(v => new Set(v).size === v.length),

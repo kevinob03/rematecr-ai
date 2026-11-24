@@ -94,21 +94,30 @@ export function ImportReview(){
 
 export function DocumentReview(){
   const [page,setPage]=useState(1)
+  const [historyPage,setHistoryPage]=useState(1)
+  const [reasonByDocument,setReasonByDocument]=useState({})
   const [busy,setBusy]=useState(false)
   const [message,setMessage]=useState('')
   const [error,setError]=useState('')
   const drafts=useRemote('/document-drafts?page='+page)
+  const history=useRemote('/document-drafts/history?page='+historyPage)
   async function submit(event){
     event.preventDefault();setBusy(true);setError('');setMessage('')
     const form=event.currentTarget
     const file=new FormData(form).get('pdf')
-    try{await uploadPdf('/agents/extract',file);form.reset();drafts.retry();setMessage('PDF recibido. Revisá las citas y los campos antes de resolver el borrador.')}
-    catch(problem){setError(problem.message)}
+    try{await uploadPdf('/agents/extract',file);form.reset();drafts.retry();history.retry();setMessage('PDF recibido. Revisá las citas y los campos antes de resolver el borrador.')}
+    catch(problem){setError(problem.message);drafts.retry();history.retry()}
     finally{setBusy(false)}
   }
   async function review(id,status){
+    const reason=reasonByDocument[id]?.trim()||''
+    if(status==='rejected'&&!reason){setError('Escribí el motivo antes de rechazar el documento.');return}
     setBusy(true);setError('')
-    try{await api('/document-drafts/'+id,{method:'PATCH',body:{status}});drafts.retry()}
+    try{
+      await api('/document-drafts/'+id,{method:'PATCH',body:{status,...(status==='rejected'?{reason}:{})}})
+      setReasonByDocument(current=>{const next={...current};delete next[id];return next})
+      drafts.retry();history.retry()
+    }
     catch(problem){setError(problem.message)}
     finally{setBusy(false)}
   }
@@ -128,11 +137,23 @@ export function DocumentReview(){
         <h4>Referencias para verificar</h4><ul>{document.fields.evidence?.map((item,index)=>
           <li key={index}>Página {item.page} · {item.field}: “{item.excerpt}”</li>)}</ul>
         {document.fields.uncertain?.length>0&&<p>Datos inciertos: {document.fields.uncertain.join(', ')}</p>}
+        <label className="field">Motivo del rechazo (obligatorio para rechazar)
+          <textarea rows={2} maxLength={500} value={reasonByDocument[document.id]||''}
+            onChange={event=>setReasonByDocument(current=>({...current,[document.id]:event.target.value}))}/>
+        </label>
         <div className="action-group"><button className="button primary" disabled={busy} onClick={()=>review(document.id,'approved')}>Aprobar borrador</button>
-          <button className="button secondary" disabled={busy} onClick={()=>review(document.id,'rejected')}>Rechazar</button></div>
+          <button className="button secondary" disabled={busy||!reasonByDocument[document.id]?.trim()} onClick={()=>review(document.id,'rejected')}>Rechazar</button></div>
       </article>)}
       {!drafts.data.items.length&&<p>No hay documentos pendientes.</p>}
       <Pagination page={page} nextPage={drafts.data.nextPage} onChange={setPage}/></>}
+    <h2>Documentos revisados</h2>
+    {history.pending?<Loading label="Cargando historial de documentos"/>:history.error?<Problem error={history.error} retry={history.retry}/>:history.data.items.length===0?<p>Aún no hay documentos revisados.</p>:history.data.items.map(document=><article className="card form-card stack" key={document.id}>
+      <h3>{document.originalName}</h3>
+      <p>{document.status==='approved'?'Aprobado':'Rechazado'} · enviado {new Date(document.createdAt).toLocaleString('es-CR')}</p>
+      {document.reviewedAt&&<small>Revisado por {document.reviewedBy||'cuenta no disponible'} el {new Date(document.reviewedAt).toLocaleString('es-CR')}</small>}
+      {document.reviewNote&&<p>Motivo registrado: {document.reviewNote}</p>}
+    </article>)}
+    {!history.pending&&!history.error&&<Pagination page={historyPage} nextPage={history.data.nextPage} onChange={setHistoryPage}/>}
   </>
 }
 
