@@ -17,7 +17,7 @@ export function createImportsController(imports){
       res.json({batch});
     },
     async review(req,res){
-      const result=await imports.review(req.validated.params.id,req.user.id,req.validated.body.approve);
+      const result=await imports.review(req.validated.params.id,req.user.id,req.validated.body);
       if(!result) throw new AppError(404,'IMPORT_ROW_NOT_FOUND','No encontramos esa fila pendiente.');
       res.json({row:result});
     },

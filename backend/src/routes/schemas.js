@@ -21,7 +21,10 @@ function newPassword() {
 
 export const schemas = {
   csvImport:z.strictObject({eventId:z.string().regex(/^[a-zA-Z0-9:_-]{1,120}$/),sourceName:z.string().trim().min(1).max(120),csv:z.string().min(1).max(500000)}),
-  importReview:z.strictObject({approve:z.boolean()}),
+  importReview:z.strictObject({
+    approve:z.boolean(),
+    reason:z.string().trim().min(1).max(500).optional(),
+  }).refine(({approve,reason})=>approve||Boolean(reason),{message:'Indicá el motivo del rechazo.',path:['reason']}),
   workflowEvent: z.strictObject({ eventId: z.string().regex(/^[a-zA-Z0-9:_-]{1,120}$/) }),
   documentReview: z.strictObject({status:z.enum(['approved','rejected'])}),
   preferences: z.strictObject({

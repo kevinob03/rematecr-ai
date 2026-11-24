@@ -7,6 +7,7 @@ export function ImportReview(){
   const [page,setPage]=useState(1)
   const [historyPage,setHistoryPage]=useState(1)
   const [openBatch,setOpenBatch]=useState(null)
+  const [reasonByRow,setReasonByRow]=useState({})
   const [csv,setCsv]=useState('title,category,summary,price,sourceUrl\n')
   const [sourceName,setSourceName]=useState('')
   const [eventId,setEventId]=useState(()=>crypto.randomUUID())
@@ -33,8 +34,14 @@ export function ImportReview(){
     finally{setBusy(false)}
   }
   async function review(id,approve){
+    const reason=reasonByRow[id]?.trim()||''
+    if(!approve&&!reason){setError('Escribí el motivo antes de rechazar la fila.');return}
     setBusy(true);setError('')
-    try{await api('/imports/'+id,{method:'PATCH',body:{approve}});pending.retry();history.retry();batchDetails.retry()}
+    try{
+      await api('/imports/'+id,{method:'PATCH',body:{approve,...(!approve?{reason}:{})}})
+      setReasonByRow(current=>{const next={...current};delete next[id];return next})
+      pending.retry();history.retry();batchDetails.retry()
+    }
     catch(problem){setError(problem.message)}
     finally{setBusy(false)}
   }
@@ -52,8 +59,12 @@ export function ImportReview(){
       <article className="card form-card stack" key={row.id}>
         <h3>{row.title}</h3><p>{row.category} · ₡{row.price.toLocaleString('es-CR')} · {row.sourceName}</p>
         <p>{row.summary}</p><a href={row.sourceUrl} target="_blank" rel="noreferrer">Revisar fuente original</a>
+        <label className="field">Motivo del rechazo (obligatorio para rechazar)
+          <textarea rows={2} maxLength={500} value={reasonByRow[row.id]||''}
+            onChange={event=>setReasonByRow(current=>({...current,[row.id]:event.target.value}))}/>
+        </label>
         <div className="action-group"><button className="button primary" disabled={busy} onClick={()=>review(row.id,true)}>Aprobar y publicar</button>
-          <button className="button secondary" disabled={busy} onClick={()=>review(row.id,false)}>Rechazar</button></div>
+          <button className="button secondary" disabled={busy||!reasonByRow[row.id]?.trim()} onClick={()=>review(row.id,false)}>Rechazar</button></div>
       </article>)}
     {!pending.pending&&!pending.error&&<Pagination page={page} nextPage={pending.data.nextPage} onChange={setPage}/>}
     <h2>Importaciones recientes</h2>
@@ -74,6 +85,7 @@ export function ImportReview(){
             <p>{item.summary||'Sin resumen'}</p>
             <a href={item.sourceUrl} target="_blank" rel="noreferrer">Abrir fuente original</a>
             {item.reviewedAt&&<small>Revisada por {item.reviewedBy||'cuenta no disponible'} el {new Date(item.reviewedAt).toLocaleString('es-CR')}</small>}
+            {item.reviewNote&&<p>Motivo registrado: {item.reviewNote}</p>}
           </div>)}</div>}
       </article>)}
     {!history.pending&&!history.error&&<Pagination page={historyPage} nextPage={history.data.nextPage} onChange={setHistoryPage}/>}

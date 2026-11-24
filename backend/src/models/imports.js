@@ -46,12 +46,12 @@ export function createImportsModel(db){
         FROM import_batches WHERE id=$1`,[batchId]);
       if(!batch.rows[0]) return null;
       const {rows}=await db.query(`SELECT r.id,r.row_number AS "rowNumber",r.title,r.category,r.summary,r.price,
-          r.source_url AS "sourceUrl",r.status,r.reviewed_at AS "reviewedAt",u.name AS "reviewedBy",r.asset_id AS "assetId"
+          r.source_url AS "sourceUrl",r.status,r.review_note AS "reviewNote",r.reviewed_at AS "reviewedAt",u.name AS "reviewedBy",r.asset_id AS "assetId"
         FROM import_rows r LEFT JOIN users u ON u.id=r.reviewed_by
         WHERE r.batch_id=$1 ORDER BY r.row_number`,[batchId]);
       return {...batch.rows[0],items:rows};
     },
-    review(id,actorId,approve){
+    review(id,actorId,{approve,reason}){
       return db.transaction(async tx=>{
         const {rows}=await tx.query(`SELECT r.*,b.source_name FROM import_rows r JOIN import_batches b ON b.id=r.batch_id
           WHERE r.id=$1 AND r.status='pending_review' FOR UPDATE OF r`,[id]);
@@ -69,9 +69,9 @@ export function createImportsModel(db){
             ['import-'+row.id,row.title,row.category,row.summary,row.price,'import-'+row.batch_id,row.source_url]);
           assetId=created[0].id;
         }
-        await tx.query('UPDATE import_rows SET status=$2,asset_id=$3,reviewed_by=$4,reviewed_at=now() WHERE id=$1',
-          [id,approve?'published':'rejected',assetId,actorId]);
-        return {id,status:approve?'published':'rejected',assetId};
+        await tx.query('UPDATE import_rows SET status=$2,asset_id=$3,reviewed_by=$4,reviewed_at=now(),review_note=$5 WHERE id=$1',
+          [id,approve?'published':'rejected',assetId,actorId,reason??null]);
+        return {id,status:approve?'published':'rejected',assetId,reviewNote:reason??null};
       });
     },
   };
