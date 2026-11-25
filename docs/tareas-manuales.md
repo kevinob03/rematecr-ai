@@ -1,8 +1,10 @@
 # Tareas manuales de Kevin
 
-Revisión del 24 de noviembre de 2026. Usá esta lista al preparar las pruebas con servicios reales. El desarrollo y las pruebas locales pueden continuar mientras estos puntos estén pendientes.
+Revisión del 25 de noviembre de 2026. Usá esta lista al preparar las pruebas con servicios reales. El desarrollo y las pruebas locales pueden continuar mientras estos puntos estén pendientes.
 
 ## Acceso a los servicios
+
+- [ ] **Revisar la configuración antes de producción.** Ejecutá `npm run preflight:production` desde la raíz. El comando no se conecta a los servicios y no muestra valores secretos; resolvé los requisitos marcados como faltantes y verificá las integraciones que vayas a activar.
 
 - [ ] **Habilitar el proveedor de IA.** Elegí una cuenta que autorices para las pruebas. Guardá en `backend/.env` la URL completa del endpoint compatible con `/chat/completions` en `AI_API_URL`, una clave válida en `AI_API_KEY` y un modelo habilitado para esa cuenta en `AI_MODEL`. La comprobación técnica será ejecutar los agentes desde React con datos de demostración y verificar el resultado y su registro en la API.
 - [ ] **Habilitar el correo de prueba.** Elegí un remitente autorizado y un buzón al que tengas acceso. Configurá `SMTP_HOST`, `SMTP_PORT` y `MAIL_FROM`. Si el servidor pide autenticación, agregá `SMTP_USER` y `SMTP_PASSWORD`. Para recibir enlaces válidos, el primer origen de `CORS_ALLOWED_ORIGINS` debe apuntar al frontend de la prueba.

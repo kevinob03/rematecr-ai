@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "concurrently -k -n API,WEB \"npm run dev -w @rematecr/backend\" \"npm run dev -w @rematecr/frontend\"",
     "build": "npm run build -w @rematecr/frontend",
+    "preflight:production": "npm run preflight:production -w @rematecr/backend",
     "start": "npm run start -w @rematecr/backend",
     "test": "npm run test -w @rematecr/backend"
   },

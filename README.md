@@ -30,6 +30,8 @@ npm start
 
 Abrí **http://127.0.0.1:4310**. La base local admite un servidor a la vez. Al volver a iniciar, se recupera el bloqueo si el proceso anterior ya terminó.
 
+Antes de preparar el entorno final, ejecutá `npm run preflight:production`. El comando informa qué requisitos de arranque e integraciones faltan sin mostrar claves ni conectarse a los servicios.
+
 ## Recorrido para revisar
 
 La contraseña pública de las cuentas ficticias es `RemateCR-demo-2026!`.

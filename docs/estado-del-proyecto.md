@@ -4,7 +4,7 @@ Revisado el 25 de noviembre de 2026. Las casillas marcadas describen funciones q
 
 ## Avance estimado
 
-**Aproximadamente 72% completado; queda 28%.** Es una estimación por hitos ponderados, no un conteo de archivos o tareas. Considera anteproyecto y diseño (20%), aplicación principal (45%), gobernanza y seguridad (15%), integraciones y datos (10%), y validación y despliegue (10%).
+**Aproximadamente 73% completado; queda 27%.** Es una estimación por hitos ponderados, no un conteo de archivos o tareas. Considera anteproyecto y diseño (20%), aplicación principal (45%), gobernanza y seguridad (15%), integraciones y datos (10%), y validación y despliegue (10%).
 
 | Hito | Peso | Avance estimado | Aporte al total |
 | --- | ---: | ---: | ---: |
@@ -12,10 +12,16 @@ Revisado el 25 de noviembre de 2026. Las casillas marcadas describen funciones q
 | Aplicación full stack | 45% | 85% | 38.25% |
 | Gobernanza y seguridad | 15% | 70% | 10.5% |
 | Integraciones, automatizaciones y datos | 10% | 25% | 2.5% |
-| Validación y despliegue | 10% | 10% | 1% |
-| **Total aproximado** | **100%** |  | **72.25%** |
+| Validación y despliegue | 10% | 15% | 1.5% |
+| **Total aproximado** | **100%** |  | **72.75%** |
 
 Los porcentajes se redondean al reportarlos. Subirán cuando se completen o validen hitos; configurar proveedores, autorizar fuentes y decidir políticas sigue pendiente aunque el código local esté implementado.
+
+## Implementaciones acordadas
+
+- [x] **1. Producto local y preparación:** funcionalidades locales, revisión administrativa con trazabilidad, controles de seguridad documentados y preflight de producción incorporados. La aceptación automatizada y el despliegue se reservan para el cierre.
+- [ ] **2. Integraciones y fuentes:** IA, correo, WF-01, WF-02 en la instancia final, WF-03 y AG-04. Requiere configurar cuentas y definir las fuentes permitidas.
+- [ ] **3. Cierre:** ejecutar validación integral, resolver hallazgos, preparar infraestructura y desplegar con secretos y dominio finales.
 
 ## Implementado en la demostración local
 
@@ -46,6 +52,7 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 - [x] PDFs almacenados fuera del frontend, dentro de `.local/`, con permisos restrictivos; nombre sanitizado, tamaño y tipo verificados, y citas de IA comprobadas contra el texto original.
 - [x] La configuración rechaza arranque de producción sin PostgreSQL, secreto JWT de al menos 32 bytes, datos demo desactivados y orígenes HTTPS explícitos.
 - [x] `.gitignore` excluye archivos `.env`, la base local y dependencias; solo se publica `.env.example` sin secretos.
+- [x] Comando `npm run preflight:production` que revisa la configuración requerida y avisa sobre integraciones faltantes sin imprimir secretos ni conectarse a servicios.
 
 ## Seguridad pendiente antes de producción
 
