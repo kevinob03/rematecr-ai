@@ -2,13 +2,13 @@ import {AppError} from '../services/app-error.js';
 
 export function createImportsModel(db){
   return {
-    async stage({eventId,sourceName,actorId,payloadHash,rows}){
+    async stage({eventId,sourceName,actorId,submissionMethod,payloadHash,rows}){
       return db.transaction(async tx=>{
-        const batch=await tx.query(`INSERT INTO import_batches(event_id,source_name,created_by,payload_hash)
-          VALUES($1,$2,$3,$4) ON CONFLICT(event_id) DO NOTHING RETURNING id`,[eventId,sourceName,actorId,payloadHash]);
+        const batch=await tx.query(`INSERT INTO import_batches(event_id,source_name,created_by,submission_method,payload_hash)
+          VALUES($1,$2,$3,$4,$5) ON CONFLICT(event_id) DO NOTHING RETURNING id`,[eventId,sourceName,actorId,submissionMethod,payloadHash]);
         if(!batch.rows.length){
-          const prior=await tx.query('SELECT id,created_by,payload_hash FROM import_batches WHERE event_id=$1',[eventId]);
-          if(prior.rows[0].created_by!==actorId||prior.rows[0].payload_hash!==payloadHash){
+          const prior=await tx.query('SELECT id,created_by,submission_method,payload_hash FROM import_batches WHERE event_id=$1',[eventId]);
+          if(prior.rows[0].created_by!==actorId||prior.rows[0].submission_method!==submissionMethod||prior.rows[0].payload_hash!==payloadHash){
             throw new AppError(409,'IMPORT_EVENT_CONFLICT','Este identificador de envío ya se usó con otros datos. Generá una nueva importación.');
           }
           const results=await tx.query('SELECT id,status FROM import_rows WHERE batch_id=$1 ORDER BY row_number',[prior.rows[0].id]);
@@ -23,14 +23,14 @@ export function createImportsModel(db){
     },
     async pending({page=1,limit=50}={}){
       const {rows}=await db.query(`SELECT r.id,r.row_number AS "rowNumber",r.title,r.category,r.summary,r.price,
-        r.source_url AS "sourceUrl",b.source_name AS "sourceName",r.batch_id AS "batchId"
+        r.source_url AS "sourceUrl",b.source_name AS "sourceName",b.submission_method AS "submissionMethod",r.batch_id AS "batchId"
         FROM import_rows r JOIN import_batches b ON b.id=r.batch_id
         WHERE r.status='pending_review' ORDER BY b.created_at,r.row_number LIMIT $1 OFFSET $2`,
         [limit+1,(page-1)*limit]);
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
     async history({page=1,limit=20}={}){
-      const {rows}=await db.query(`SELECT b.id,b.source_name AS "sourceName",b.status,b.created_at AS "createdAt",
+      const {rows}=await db.query(`SELECT b.id,b.source_name AS "sourceName",b.status,b.submission_method AS "submissionMethod",b.created_at AS "createdAt",
           count(r.id)::int AS "totalRows",
           (count(r.id) FILTER (WHERE r.status='pending_review'))::int AS "pendingRows",
           (count(r.id) FILTER (WHERE r.status='published'))::int AS "publishedRows",
@@ -42,7 +42,7 @@ export function createImportsModel(db){
       return {items:rows.slice(0,limit),nextPage:rows.length>limit?page+1:null};
     },
     async batchDetails(batchId){
-      const batch=await db.query(`SELECT id,source_name AS "sourceName",status,created_at AS "createdAt"
+      const batch=await db.query(`SELECT id,source_name AS "sourceName",status,submission_method AS "submissionMethod",created_at AS "createdAt"
         FROM import_batches WHERE id=$1`,[batchId]);
       if(!batch.rows[0]) return null;
       const {rows}=await db.query(`SELECT r.id,r.row_number AS "rowNumber",r.title,r.category,r.summary,r.price,

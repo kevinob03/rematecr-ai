@@ -1,0 +1,67 @@
+{
+  "name": "WF-01 Ingreso CSV autorizado",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rematecr-ai/wf01/imports/csv",
+        "authentication": "headerAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "620e467c-3565-4a83-93c6-116d833f3001",
+      "name": "Recibir lote CSV autorizado",
+      "webhookId": "rematecrWf01CsvIntake",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "rematecrWf01Header",
+          "name": "RemateCR WF-01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4310/api/v1/internal/workflows/imports/csv",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [300, 0],
+      "id": "620e467c-3565-4a83-93c6-116d833f3002",
+      "name": "Enviar a revisión en RemateCR",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "rematecrWf01Header",
+          "name": "RemateCR WF-01"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Recibir lote CSV autorizado": {
+      "main": [[{"node": "Enviar a revisión en RemateCR", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Costa_Rica"
+  },
+  "versionId": "620e467c-3565-4a83-93c6-116d833f3000",
+  "meta": {"templateCredsSetupCompleted": false}
+}

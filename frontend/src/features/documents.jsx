@@ -57,7 +57,7 @@ export function ImportReview(){
     <h2>Filas pendientes</h2>
     {pending.pending?<Loading label="Cargando filas"/>:pending.error?<Problem error={pending.error} retry={pending.retry}/>:pending.data.items.length===0?<p>No hay filas pendientes de revisión.</p>:pending.data.items.map(row=>
       <article className="card form-card stack" key={row.id}>
-        <h3>{row.title}</h3><p>{row.category} · ₡{row.price.toLocaleString('es-CR')} · {row.sourceName}</p>
+        <h3>{row.title}</h3><p>{row.category} · ₡{row.price.toLocaleString('es-CR')} · {row.sourceName} · {row.submissionMethod==='workflow'?'Recibido por n8n':'Cargado por administrador'}</p>
         <p>{row.summary}</p><a href={row.sourceUrl} target="_blank" rel="noreferrer">Revisar fuente original</a>
         <label className="field">Motivo del rechazo (obligatorio para rechazar)
           <textarea rows={2} maxLength={500} value={reasonByRow[row.id]||''}
@@ -72,7 +72,7 @@ export function ImportReview(){
       <article className="card form-card stack" key={batch.id}>
         <h3>{batch.sourceName}</h3>
         <p>{batch.status==='reviewed'?'Resuelta':'En revisión'} · recibida {new Date(batch.createdAt).toLocaleString('es-CR')}</p>
-        <p>{batch.totalRows} filas · {batch.pendingRows} pendientes · {batch.publishedRows} publicadas · {batch.rejectedRows} rechazadas</p>
+        <p>{batch.submissionMethod==='workflow'?'Enviado por n8n':'Enviado por administrador'} · {batch.totalRows} filas · {batch.pendingRows} pendientes · {batch.publishedRows} publicadas · {batch.rejectedRows} rechazadas</p>
         {batch.lastReviewedAt&&<small>Última revisión: {new Date(batch.lastReviewedAt).toLocaleString('es-CR')}</small>}
         <button type="button" className="button secondary" aria-expanded={openBatch===batch.id}
           onClick={()=>setOpenBatch(openBatch===batch.id?null:batch.id)}>

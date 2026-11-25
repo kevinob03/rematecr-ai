@@ -18,6 +18,14 @@ Revisión del 25 de noviembre de 2026. Usá esta lista al preparar las pruebas c
 - [ ] **Revisar la URL del backend** en el nodo «Crear alertas internas». El archivo apunta al backend local en `http://127.0.0.1:4310`. Si n8n corre en otra computadora o servicio, reemplazala por una dirección que alcance al backend.
 - [ ] **Probar manualmente y luego publicar** el workflow solo cuando la URL y la credencial funcionen. Registrar la ejecución en la entrega de FWD.
 
+## Preparar WF-01 para una fuente autorizada
+
+- [ ] Importar `n8n/workflows/WF-01_Ingreso_CSV.json` en la misma instancia de n8n.
+- [ ] Crear la credencial HTTP Header Auth `RemateCR WF-01` con `Authorization: Bearer <N8N_WORKFLOW_TOKEN>`. El mismo secreto protege la entrada webhook y la llamada al backend; no lo guardés en el JSON.
+- [ ] Cambiar la URL del backend si n8n no alcanza `http://127.0.0.1:4310`. Configurar el origen autorizado para hacer POST al webhook protegido de n8n.
+- [ ] Enviar JSON con `eventId`, `sourceName` y `csv`. El CSV debe usar el formato documentado abajo. El lote llegará a **Importaciones** como recibido por n8n y necesitará aprobación humana.
+- [ ] Seleccionar el portal/API que alimentará el webhook y confirmar permiso de recolección y publicación. El workflow entrega el CSV al backend; no incluye un adaptador específico de portal.
+
 ## Preparar una importación de bienes
 
 - [ ] Reunir un CSV únicamente de fuentes cuyo uso y publicación estén autorizados. Cada fila debe incluir título, categoría `vehicle` o `property`, resumen, precio entero en colones y URL HTTPS de la fuente original.

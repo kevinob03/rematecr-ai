@@ -41,7 +41,7 @@ export function createImportService(model){
         return {...result.data,rowNumber:index+2};
       });
       const payloadHash=createHash('sha256').update(JSON.stringify({sourceName,rows})).digest('hex');
-      return model.stage({eventId,sourceName,actorId,payloadHash,rows});
+      return model.stage({eventId,sourceName,actorId,submissionMethod:actorId?'admin':'workflow',payloadHash,rows});
     },
   };
 }

@@ -67,7 +67,7 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 
 ## Pendiente de implementación en el repositorio
 
-- [ ] **WF-01: ingesta automática desde una fuente autorizada.** La carga CSV ya está hecha; falta conectar el origen elegido y su autorización de uso y publicación.
+- [ ] **WF-01: ingesta automática desde una fuente autorizada.** El endpoint y workflow para recibir CSV autenticados están implementados; falta importar/configurar n8n, conectar el origen elegido y autorizar su uso y publicación.
 - [ ] **WF-03: indexación documental automatizada con n8n.** La aplicación ya consulta documentos aprobados; falta acordar el repositorio documental y automatizar la entrada.
 - [ ] **AG-04: visión por computadora.** Falta definir imágenes autorizadas y qué atributos visibles debe describir; por eso no se inventa aún su alcance.
 - [ ] Completar la integración de los puntos anteriores con permisos, manejo de errores y documentación de operación.
