@@ -1,6 +1,21 @@
 # Estado y checklist de RemateCR AI
 
-Revisado el 24 de noviembre de 2026. Las casillas marcadas describen funciones que ya están en el repositorio y en la demostración local. No implican que se hayan aceptado para producción ni que se hayan validado con servicios externos.
+Revisado el 25 de noviembre de 2026. Las casillas marcadas describen funciones que ya están en el repositorio y en la demostración local. No implican que se hayan aceptado para producción ni que se hayan validado con servicios externos.
+
+## Avance estimado
+
+**Aproximadamente 72% completado; queda 28%.** Es una estimación por hitos ponderados, no un conteo de archivos o tareas. Considera anteproyecto y diseño (20%), aplicación principal (45%), gobernanza y seguridad (15%), integraciones y datos (10%), y validación y despliegue (10%).
+
+| Hito | Peso | Avance estimado | Aporte al total |
+| --- | ---: | ---: | ---: |
+| Anteproyecto y diseño | 20% | 100% | 20% |
+| Aplicación full stack | 45% | 85% | 38.25% |
+| Gobernanza y seguridad | 15% | 70% | 10.5% |
+| Integraciones, automatizaciones y datos | 10% | 25% | 2.5% |
+| Validación y despliegue | 10% | 10% | 1% |
+| **Total aproximado** | **100%** |  | **72.25%** |
+
+Los porcentajes se redondean al reportarlos. Subirán cuando se completen o validen hitos; configurar proveedores, autorizar fuentes y decidir políticas sigue pendiente aunque el código local esté implementado.
 
 ## Implementado en la demostración local
 
