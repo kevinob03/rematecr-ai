@@ -21,6 +21,7 @@ import { createFinanceAgent } from '../services/agents/finance/finance.js';
 import { readAgentConfig } from '../services/agents/provider.js';
 import { createRemyAgent } from '../services/agents/remy/remy.js';
 import { createRemyController } from '../controllers/remy.js';
+import { createIntegrationReadinessController } from '../controllers/integration-readiness.js';
 
 export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis.fetch, storageDir } = {}) {
   storageDir ??= join(repositoryRoot,'.local','documents');
@@ -46,6 +47,7 @@ export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis
     const documents = createDocumentsModel(db);
     const documentsController=createDocumentsController(documents);
     const extractor = createExtractAgent({config,documents,executions,storageDir,fetchImpl});
+    router.get('/admin/integrations',requireRoles('admin'),createIntegrationReadinessController({env,agentConfigured:Boolean(config),databaseKind:db.kind}));
     router.get('/capabilities', (_req, res) => res.json({ financeAgent: Boolean(config), comparisonAgent: Boolean(config), searchAgent: Boolean(config), scoreAgent: true, extractAgent: Boolean(config), ragAgent: Boolean(config), remyAgent: Boolean(config) }));
     router.post('/agents/remy', requireRoles('buyer'), limit,
       validate({body:z.strictObject({query:z.string().trim().min(2).max(500)})}),

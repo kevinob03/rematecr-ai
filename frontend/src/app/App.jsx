@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from 'react'
-import { ArrowRight, CircleHelp, ClipboardList, FileText, LayoutGrid, LogIn, LogOut, Scale, Search, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, CircleHelp, ClipboardList, FileText, LayoutGrid, LogIn, LogOut, PlugZap, Scale, Search, ShieldCheck, Sparkles } from 'lucide-react'
 import { Link, Navigate, NavLink, Outlet, Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Empty, Loading, PageHeading, Problem } from '../components/ui.jsx'
 import { useComparison } from './comparison.jsx'
@@ -13,6 +13,7 @@ import { RemyPage } from '../features/remy.jsx'
 import { LoginPage } from '../features/login.jsx'
 import { AccountAccess, PoliciesPage, Profile } from '../features/account.jsx'
 import { api } from '../api/client.js'
+import { IntegrationReadiness } from '../features/integrations.jsx'
 
 const ComparePage = lazy(() => import('../features/compare.jsx').then(module => ({ default: module.ComparePage })))
 const CrmPage = lazy(() => import('../features/crm.jsx').then(module => ({ default: module.CrmPage })))
@@ -89,6 +90,7 @@ function Shell() {
         {user?.role === 'auditor' || user?.role === 'admin' ? <RailLink to="/auditoria" icon={ShieldCheck}>Auditoría</RailLink> : null}
         {user?.role === 'admin' && <RailLink to="/documentos" icon={FileCheck2}>Documentos</RailLink>}
         {user?.role === 'admin' && <RailLink to="/importaciones" icon={FileText}>Importaciones</RailLink>}
+        {user?.role === 'admin' && <RailLink to="/integraciones" icon={PlugZap}>Integraciones</RailLink>}
         {(user?.role === 'buyer' || user?.role === 'admin') && <RailLink to="/consultar-documentos" icon={FileText}>Consulta documental</RailLink>}
         {user?.role === 'buyer' && <RailLink to="/remy" icon={Sparkles}>Remy</RailLink>}
       </nav>
@@ -168,6 +170,7 @@ export function App() {
       <Route path="/auditoria" element={<Require roles={['auditor', 'admin']}><AuditPage /></Require>} />
       <Route path="/documentos" element={<Require roles={['admin']}><DocumentReview /></Require>} />
       <Route path="/importaciones" element={<Require roles={['admin']}><ImportReview /></Require>} />
+      <Route path="/integraciones" element={<Require roles={['admin']}><IntegrationReadiness /></Require>} />
       <Route path="/consultar-documentos" element={<Require roles={['buyer','admin']}><DocumentQuestion /></Require>} />
       <Route path="/remy" element={<Require roles={['buyer']}><RemyPage /></Require>} />
       <Route path="/ayuda" element={<HelpPage />} />

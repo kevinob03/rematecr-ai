@@ -53,6 +53,7 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 - [x] La configuración rechaza arranque de producción sin PostgreSQL, secreto JWT de al menos 32 bytes, datos demo desactivados y orígenes HTTPS explícitos.
 - [x] `.gitignore` excluye archivos `.env`, la base local y dependencias; solo se publica `.env.example` sin secretos.
 - [x] Comando `npm run preflight:production` que revisa la configuración requerida y avisa sobre integraciones faltantes sin imprimir secretos ni conectarse a servicios.
+- [x] Panel de **Integraciones** para el administrador: diferencia configuración presente de conexión comprobada y no muestra valores secretos.
 
 ## Seguridad pendiente antes de producción
 
