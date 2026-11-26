@@ -86,4 +86,4 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 
 ## Guía para continuar
 
-Las acciones que requieren cuentas, accesos o decisiones están detalladas en [Tareas manuales](tareas-manuales.md). La explicación de lo que hoy puede hacer el sitio está en [Descripción del sitio](descripcion-del-sitio.md).
+Las acciones que requieren cuentas, accesos o decisiones están detalladas en [Tareas manuales](tareas-manuales.md) y organizadas paso a paso en la [Guía manual por fases](guia-manual-por-fases.md). La explicación de lo que hoy puede hacer el sitio está en [Descripción del sitio](descripcion-del-sitio.md).
