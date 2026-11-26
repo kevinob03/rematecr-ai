@@ -25,7 +25,7 @@ Los porcentajes se redondean al reportarlos. Subirán cuando se completen o vali
 
 ## Implementado en la demostración local
 
-- [x] Soporte para proveedor principal y respaldo de IA: fallback único ante errores transitorios, timeout o JSON inválido; las ejecuciones registran el proveedor/modelo utilizado. La conexión Groq queda pendiente de clave y comprobación real.
+- [x] Soporte para proveedor principal y respaldo de IA: fallback único ante errores transitorios, timeout o JSON inválido; las ejecuciones registran el proveedor/modelo utilizado. Gemini y Groq Free están configurados localmente; el recorrido sintético Gemini → Groq respondió correctamente. Falta validar agentes desde la interfaz y revisar las condiciones de datos antes de usar información real.
 
 - [x] Proyecto full stack con frontend React, API Express por capas, base SQL, migraciones y datos ficticios.
 - [x] Catálogo de bienes, filtros, fichas con procedencia y estado vacío para categorías sin datos autorizados.
