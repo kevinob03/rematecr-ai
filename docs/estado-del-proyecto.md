@@ -1,6 +1,6 @@
 # Estado y checklist de RemateCR AI
 
-Revisado el 25 de noviembre de 2026. Las casillas marcadas describen funciones que ya están en el repositorio y en la demostración local. No implican que se hayan aceptado para producción ni que se hayan validado con servicios externos.
+Revisado el 26 de noviembre de 2026. Las casillas marcadas describen funciones que ya están en el repositorio y en la demostración local. No implican que se hayan aceptado para producción ni que se hayan validado con servicios externos.
 
 ## Avance estimado
 
@@ -67,7 +67,7 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 
 ## Pendiente de implementación en el repositorio
 
-- [ ] **WF-01: ingesta automática desde una fuente autorizada.** El endpoint y workflow para recibir CSV autenticados están implementados; falta importar/configurar n8n, conectar el origen elegido y autorizar su uso y publicación.
+- [ ] **WF-01: ingesta automática desde una fuente autorizada.** Endpoint y workflow n8n genérico implementados para recibir CSV autenticados y enviarlos a revisión; falta importar/configurar n8n, conectar el origen elegido y autorizar su uso y publicación.
 - [ ] **WF-03: indexación documental automatizada con n8n.** La aplicación ya consulta documentos aprobados; falta acordar el repositorio documental y automatizar la entrada.
 - [ ] **AG-04: visión por computadora.** Falta definir imágenes autorizadas y qué atributos visibles debe describir; por eso no se inventa aún su alcance.
 - [ ] Completar la integración de los puntos anteriores con permisos, manejo de errores y documentación de operación.

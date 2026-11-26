@@ -14,6 +14,8 @@ RemateCR AI sigue el monolito modular del anteproyecto. React consume una API Ex
 | `backend/src/services` | Aplicar reglas de negocio, coordinar operaciones con los modelos e integrar IA, APIs y n8n. |
 | `backend/tests` | Alojar pruebas unitarias por capa e integración cuando haya componentes ejecutables. |
 
+Las rutas de n8n están separadas en `backend/src/routes/workflows.js`. Allí se aplican el token interno, límites de cuerpo y esquemas antes de delegar en controladores y servicios; `app.js` solo compone el router.
+
 `src/app.js` compone la aplicación con middlewares globales, rutas y manejo de errores. `src/server.js` prepara el esquema SQL e inicia la escucha.
 
 ## Recorrido de una petición

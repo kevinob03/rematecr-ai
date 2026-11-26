@@ -1,12 +1,9 @@
 import { extname, resolve } from 'node:path';
 import express from 'express';
 import helmet from 'helmet';
-import { requireWorkflowToken } from './middlewares/workflow.js';
 import { createPreferencesModel } from './models/preferences.js';
 import { createPreferencesService } from './services/preferences.js';
 import { createPreferencesController } from './controllers/preferences.js';
-import { validate } from './middlewares/validate.js';
-import { schemas } from './routes/schemas.js';
 import { createRequireRoles } from './middlewares/auth.js';
 import { handleErrors, notFound } from './middlewares/errors.js';
 import { requestContext, requireAllowedOrigin } from './middlewares/request.js';
@@ -23,7 +20,7 @@ import { createCrmService } from './services/crm.js';
 import { createSimulator } from './services/simulations.js';
 import { createImportsModel } from './models/imports.js';
 import { createImportService } from './services/imports.js';
-import { createWorkflowImportController } from './controllers/workflow-imports.js';
+import { createWorkflowRouter } from './routes/workflows.js';
 
 export function createApp({ db, config, staticDir, logger = console, configureRoutes, mailer = createAccountMailer(config) }) {
   const app = express();
@@ -43,11 +40,11 @@ export function createApp({ db, config, staticDir, logger = console, configureRo
   const preferenceService = createPreferencesService(createPreferencesModel(db));
   const preferences = createPreferencesController(preferenceService);
   const imports = createImportService(createImportsModel(db));
-  const workflowImports=createWorkflowImportController(imports);
-  app.post('/api/v1/internal/workflows/alerts', requestContext, requireWorkflowToken(config.workflowToken),
-    express.json({ limit: '1kb' }), validate({ body: schemas.workflowEvent }), preferences.run);
-  app.post('/api/v1/internal/workflows/imports/csv',requestContext,requireWorkflowToken(config.workflowToken),
-    express.json({limit:'600kb'}),validate({body:schemas.csvImport}),workflowImports.receive);
+  app.use('/api/v1/internal/workflows', createWorkflowRouter({
+    token: config.workflowToken,
+    preferences,
+    imports,
+  }));
 
   app.use(
     '/api/v1',

@@ -66,7 +66,7 @@ Desde **Iniciar sesión** se puede crear una cuenta de comprador con aceptación
 
 Para habilitar recuperación por correo, configurá `SMTP_HOST`, `SMTP_PORT`, `MAIL_FROM` y, si corresponde, `SMTP_USER` y `SMTP_PASSWORD` en el entorno del backend. El primer origen de `CORS_ALLOWED_ORIGINS` debe ser la dirección web de React que recibirá el enlace. En desarrollo el valor predeterminado es `http://127.0.0.1:5173`. Usá un buzón SMTP de pruebas para los datos ficticios. Con credenciales o en producción se exige TLS. El enlace vence a los 20 minutos, cada solicitud invalida el enlace anterior y el cambio de contraseña cierra las sesiones existentes. Las pruebas automatizadas usan un buzón en memoria.
 
-Quedan pendientes AG-04, la automatización de ingesta WF-01 y la indexación WF-03, además de importar y verificar WF-02 en la instancia final, probar IA y SMTP reales, y preparar el despliegue público. La aplicación ya permite importar CSV de fuentes autorizadas y revisar cada fila con un administrador; esto no sustituye la conexión automatizada a una fuente.
+Quedan pendientes la conexión de WF-01 a una fuente autorizada, WF-03, AG-04, importar y verificar WF-01/WF-02 en la instancia final, probar IA y SMTP reales, y preparar el despliegue público. WF-01 ya incluye un endpoint interno autenticado y una exportación n8n genérica para recibir CSV en revisión; no contiene un adaptador para un portal concreto.
 
 ## Organización
 
