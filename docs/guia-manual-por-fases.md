@@ -117,7 +117,7 @@ Preflight sin requisitos obligatorios faltantes, aceptación y suite registradas
 
 ## Estado actual
 
-- Fase 1: pendiente de inventariar qué proveedores y cuentas ya tenés; el proyecto sigue ejecutándose localmente.
+- Fase 1: el proveedor elegido para probar IA es Gemini API en cuota gratuita. La URL y el modelo quedaron configurados localmente y la app reconoció la clave sin mostrarla. La consulta de demostración recibió HTTP 503 en dos intentos; falta repetir cuando el servicio tenga disponibilidad. No se enviaron datos personales. Falta inventariar correo SMTP y n8n.
 - Fase 2: WF-01 tiene endpoint autenticado y workflow genérico exportado; falta importar n8n y elegir fuente. WF-02 está exportado; WF-03 y AG-04 esperan definiciones.
 - Fase 3: pendiente; no se ha elegido infraestructura de staging/producción.
 - Fase 4: pendiente; no se marca como aprobada sin ejecución real.
