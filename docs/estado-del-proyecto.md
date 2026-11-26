@@ -25,6 +25,8 @@ Los porcentajes se redondean al reportarlos. Subirán cuando se completen o vali
 
 ## Implementado en la demostración local
 
+- [x] Soporte para proveedor principal y respaldo de IA: fallback único ante errores transitorios, timeout o JSON inválido; las ejecuciones registran el proveedor/modelo utilizado. La conexión Groq queda pendiente de clave y comprobación real.
+
 - [x] Proyecto full stack con frontend React, API Express por capas, base SQL, migraciones y datos ficticios.
 - [x] Catálogo de bienes, filtros, fichas con procedencia y estado vacío para categorías sin datos autorizados.
 - [x] Autenticación, roles, aceptación de políticas, recuperación de cuenta y gestión de sesiones.
@@ -73,6 +75,8 @@ Estas medidas están implementadas en la demostración local. Su presencia en el
 - [ ] Completar la integración de los puntos anteriores con permisos, manejo de errores y documentación de operación.
 
 ## Pendiente de configuración o decisión manual
+
+- [ ] Crear clave Groq en plan Free, dejar facturación desactivada y comprobar el fallback con datos ficticios; nunca pegar la clave en Git o en el chat.
 
 - [ ] Configurar un proveedor de IA y validar los agentes con una cuenta de prueba. Ver variables en [`backend/.env.example`](../backend/.env.example).
 - [ ] Configurar SMTP y comprobar recuperación de contraseña y correo de cierre con un buzón de prueba.

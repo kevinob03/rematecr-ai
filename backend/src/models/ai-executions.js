@@ -17,5 +17,12 @@ export function createAiExecutionModel(db) {
         [id, status, code],
       );
     },
+    async useProvider(id, provider, model) {
+      await db.query(
+        `UPDATE ai_executions SET provider=$2,model=$3
+         WHERE id=$1 AND status='in_progress'`,
+        [id, provider, model],
+      );
+    },
   };
 }

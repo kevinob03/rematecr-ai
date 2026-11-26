@@ -46,7 +46,9 @@ check(required,'Puertos API y SMTP válidos',validPort(env.PORT)&&validPort(env.
 const proxyHops=Number(env.TRUST_PROXY_HOPS||0);
 check(required,'TRUST_PROXY_HOPS entero no negativo',Number.isSafeInteger(proxyHops)&&proxyHops>=0);
 
-check(recommended,'Proveedor de IA listo',Boolean(readAgentConfig(env)),'AI_API_URL, AI_API_KEY y AI_MODEL');
+const aiConfig=readAgentConfig(env);
+check(recommended,'Proveedor de IA listo',Boolean(aiConfig),'AI_API_URL, AI_API_KEY y AI_MODEL');
+check(recommended,'Respaldo de IA configurado',Boolean(aiConfig?.providers.some(provider=>provider.id==='backup')),'AI_BACKUP_API_URL, AI_BACKUP_API_KEY y AI_BACKUP_MODEL; mantener el proveedor en su plan gratuito');
 const mailConfigured=Boolean(env.SMTP_HOST?.trim()&&env.MAIL_FROM?.trim());
 const mailAuthConsistent=Boolean(env.SMTP_USER?.trim())===Boolean(env.SMTP_PASSWORD);
 check(recommended,'Correo listo',mailConfigured&&mailAuthConsistent,'SMTP_HOST y MAIL_FROM; SMTP_USER y SMTP_PASSWORD deben configurarse juntos');

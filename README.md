@@ -51,6 +51,8 @@ En la ficha y en el comparador, **Ver referencia en USD** consulta la serie USD/
 
 ## Configuración y pruebas
 
+La integración de IA admite un proveedor principal y un respaldo OpenAI-compatible. Si el principal falla temporalmente, excede su cuota o devuelve JSON inválido, se intenta una vez con el respaldo. No se reintenta HTTP 400; la ejecución registra qué proveedor respondió. Las claves son independientes y se guardan solo en el backend.
+
 - [Base de datos](database/README.md). Para usar un servidor PostgreSQL, configurá `DATABASE_URL` en `backend/.env`. Con un servidor externo, el sembrado ficticio requiere `DEMO_DATA=1` en un entorno local. La aplicación rechaza la base sembrada al arrancar en modo producción.
 - [Agente AG-06](backend/src/services/agents/finance/README.md). Se habilita con `AI_API_URL`, `AI_API_KEY` y `AI_MODEL`. Cuando está habilitado, el usuario decide si envía las partidas conocidas al proveedor para pedir una explicación. La aplicación calcula los importes siempre en Express.
 - El comprador puede usar **Explicar la comparación** para contrastar dos escenarios con AG-07. Se requiere la misma configuración de IA que AG-06. React muestra los campos comparables, los límites y enlaces a las dos fichas. Express calcula la diferencia y verifica las partidas compartidas.

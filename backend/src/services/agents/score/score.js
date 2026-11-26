@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AppError } from '../../app-error.js';
-import { requestStructured } from '../provider.js';
+import { requestStructured, trackProviderAttempt } from '../provider.js';
 
 export const SCORE_VERSION = 'propuesta-0.1';
 const proposedWeights = {
@@ -46,6 +46,7 @@ export function createScoreAgent({ config, assets, preferences, executions, fetc
       const evidence = calculated.breakdown.map(({ id, weight, status, value }) => ({ id, weight, status, value }));
       const result = await requestStructured({
         config, fetchImpl, schema: responseSchema,
+        onProviderAttempt: trackProviderAttempt(executions, executionId),
         instruction: 'Explica solo los componentes enumerados, su estado y valor. No calcules ni modifiques el puntaje. '
           + 'Si el estado es missing, explica que falta evidencia. Identifica los pesos como propuesta sin validar. Devuelve JSON {observations:[{id,note}]}.',
         data: { asset: { id: asset.id, title: asset.title, category: asset.category },

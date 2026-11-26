@@ -6,6 +6,8 @@ Revisión del 26 de noviembre de 2026. Usá esta lista al preparar las pruebas c
 
 El recorrido detallado para completar todo está en [Guía manual por fases](guia-manual-por-fases.md). Empezaremos con inventario y servicios de prueba, seguiremos con workflows y fuentes autorizadas, y cerraremos con staging y aceptación.
 
+- [ ] Crear clave Groq en plan Free como respaldo de Gemini. No actualizar a Developer ni agregar método de pago. Guardar la clave solo en `backend/.env` como `AI_BACKUP_API_KEY`; nunca pegarla en el chat.
+
 - [ ] **Revisar la configuración antes de producción.** Ejecutá `npm run preflight:production` desde la raíz. El comando no se conecta a los servicios y no muestra valores secretos; resolvé los requisitos marcados como faltantes y verificá las integraciones que vayas a activar.
 - [ ] **Consultar Integraciones** con el perfil administrador. El panel indica la configuración detectada; cada proveedor sigue pendiente hasta comprobarlo con una conexión real.
 

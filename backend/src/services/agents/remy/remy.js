@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { AppError } from '../../app-error.js';
-import { requestStructured } from '../provider.js';
+import { requestStructured, trackProviderAttempt } from '../provider.js';
 
 const intentSchema=z.strictObject({
   intent:z.enum(['search','compare','follow_up','documents','help']),
@@ -15,6 +15,7 @@ export function createRemyAgent({config,assets,executions,fetchImpl}){
     try{
       const parsed=await requestStructured({
         config,fetchImpl,schema:intentSchema,
+        onProviderAttempt:trackProviderAttempt(executions,execution),
         instruction:'Clasifica la solicitud en search, compare, follow_up, documents o help. Propón categoría solo si la persona la menciona claramente. Devuelve texto de búsqueda literal breve solo si la consulta identifica un bien. No afirmes que ejecutaste acciones ni inventes bienes.',
         data:{query},
       });

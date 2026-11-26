@@ -26,6 +26,11 @@ Revisada el 26 de noviembre de 2026. Esta guía ordena las conexiones, decisione
 
 - [ ] Copiar `backend/.env.example` a `backend/.env` si todavía no existe. No reemplazar un archivo existente sin conservar sus valores.
 - [ ] Completar `AI_API_URL`, `AI_API_KEY` y `AI_MODEL` con datos del proveedor que ya elegiste y autorizaste.
+- [ ] Mantener Gemini API en Free como principal. Para que el proyecto siga costando cero, no asociar una cuenta de facturación ni activar funciones de pago.
+- [ ] Crear una cuenta en Groq Console y una API key de prueba. Confirmar que la organización siga en **Free**; no actualizar a Developer ni agregar método de pago.
+- [ ] Completar `AI_BACKUP_API_URL`, `AI_BACKUP_API_KEY` y `AI_BACKUP_MODEL` en `backend/.env` con la configuración Groq indicada por el proyecto. No compartir la clave por chat.
+- [ ] La aplicación intenta Groq una sola vez si el proveedor principal devuelve indisponibilidad, límite/cuota, timeout o una respuesta JSON inválida. No reintenta fallos de solicitud HTTP 400.
+- [ ] Usar solo datos ficticios en ambos proveedores. Gemini informa que la cuota gratuita puede usar solicitudes para mejorar sus productos; Groq no conserva por defecto solicitudes de inferencia, pero puede retenerlas hasta 30 días para confiabilidad y abuso.
 - [ ] Reiniciar el backend y abrir **Integraciones** con la cuenta administradora. Verificar que IA aparezca configurada; eso solo confirma que hay valores presentes.
 - [ ] Hacer una consulta de bajo riesgo desde la aplicación, revisar el resultado y confirmar que se registra la ejecución. No enviar datos personales a un proveedor sin autorización.
 - [ ] Confirmar el comportamiento de los agentes habilitados. AG-04 sigue separado: necesita definir imágenes autorizadas y atributos antes de configurarse.
@@ -117,7 +122,7 @@ Preflight sin requisitos obligatorios faltantes, aceptación y suite registradas
 
 ## Estado actual
 
-- Fase 1: el proveedor elegido para probar IA es Gemini API en cuota gratuita. La URL y el modelo quedaron configurados localmente y la app reconoció la clave sin mostrarla. La consulta de demostración recibió HTTP 503 en dos intentos; falta repetir cuando el servicio tenga disponibilidad. No se enviaron datos personales. Falta inventariar correo SMTP y n8n.
+- Fase 1: Gemini API Free está configurado como principal y la clave cargó localmente; la consulta sintética recibió HTTP 503. Se acordó añadir Groq Free como respaldo automático. Falta crear su clave, validar el nivel Free y comprobar un recorrido con datos ficticios. No se enviaron datos personales. Falta inventariar correo SMTP y n8n.
 - Fase 2: WF-01 tiene endpoint autenticado y workflow genérico exportado; falta importar n8n y elegir fuente. WF-02 está exportado; WF-03 y AG-04 esperan definiciones.
 - Fase 3: pendiente; no se ha elegido infraestructura de staging/producción.
 - Fase 4: pendiente; no se marca como aprobada sin ejecución real.

@@ -1,6 +1,6 @@
 import { AppError } from '../../app-error.js';
 import { calculateSimulation } from '../../simulations.js';
-import { selectEvidence } from '../provider.js';
+import { selectEvidence, trackProviderAttempt } from '../provider.js';
 
 const crc = new Intl.NumberFormat('es-CR', { maximumFractionDigits: 0 });
 const money = value => '₡' + crc.format(value);
@@ -26,9 +26,14 @@ export function createComparisonAgent({ config, assets, executions, fetchImpl })
     const candidates = facts.sort((a, b) => magnitude(b) - magnitude(a)).slice(0, 12)
       .map((fact, index) => ({ ...fact, id: 'c' + (index + 1) }));
     const execution = await executions.begin('AG-07', actorId, config.model);
+    let usedModel = config.model;
     try {
       const selected = await selectEvidence({
         config, candidates, currency: 'CRC', fetchImpl,
+        onProviderAttempt: async provider => {
+          usedModel = provider.model;
+          await trackProviderAttempt(executions, execution)(provider);
+        },
         instruction: 'Selecciona hasta dos diferencias de mayor impacto entre el primer y segundo bien.',
       });
       const complete = compatible && left.total !== null && right.total !== null;
@@ -46,7 +51,7 @@ export function createComparisonAgent({ config, assets, executions, fetchImpl })
         id: asset.id, title: asset.title, source: asset.source,
       }));
       await executions.finish(execution, 'succeeded', 'OK');
-      return { explanation: explanation.join(' '), difference, limits, references, model: config.model };
+      return { explanation: explanation.join(' '), difference, limits, references, model: usedModel };
     } catch (error) {
       await executions.finish(execution, 'failed', error instanceof AppError ? error.code : 'AI_COMPARISON_FAILED');
       throw error;

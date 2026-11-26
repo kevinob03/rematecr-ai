@@ -1,5 +1,5 @@
 import { AppError } from '../../app-error.js';
-import { selectEvidence } from '../provider.js';
+import { selectEvidence, trackProviderAttempt } from '../provider.js';
 export { readAgentConfig as readFinanceConfig } from '../provider.js';
 
 const MAX_CANDIDATES = 12;
@@ -33,9 +33,14 @@ export function createFinanceAgent({ config, executions, fetchImpl = globalThis.
     if (!config) throw new AppError(503, 'AI_NOT_CONFIGURED', 'El agente de costos aún no está configurado.');
     const id = await executions.begin('AG-06', actorId, config.model);
     let explanation;
+    let usedModel = config.model;
     try {
       const drivers = await selectEvidence({
         config, candidates: candidatesFrom(simulation), currency: simulation.currency, fetchImpl,
+        onProviderAttempt: async provider => {
+          usedModel = provider.model;
+          await trackProviderAttempt(executions, id)(provider);
+        },
         instruction: 'Selecciona de 1 a 2 identificadores de las partidas conocidas con mayor impacto en el costo.',
       });
       explanation = explainSimulation(simulation, drivers);
@@ -45,6 +50,6 @@ export function createFinanceAgent({ config, executions, fetchImpl = globalThis.
       throw error;
     }
     await executions.finish(id, 'succeeded', 'OK');
-    return { explanation, model: config.model };
+    return { explanation, model: usedModel };
   };
 }
