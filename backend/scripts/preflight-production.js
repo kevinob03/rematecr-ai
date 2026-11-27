@@ -49,6 +49,9 @@ check(required,'TRUST_PROXY_HOPS entero no negativo',Number.isSafeInteger(proxyH
 const aiConfig=readAgentConfig(env);
 check(recommended,'Proveedor de IA listo',Boolean(aiConfig),'AI_API_URL, AI_API_KEY y AI_MODEL');
 check(recommended,'Respaldo de IA configurado',Boolean(aiConfig?.providers.some(provider=>provider.id==='backup')),'AI_BACKUP_API_URL, AI_BACKUP_API_KEY y AI_BACKUP_MODEL; mantener el proveedor en su plan gratuito');
+const deepseekRequested=env.AI_DEEPSEEK_ENABLED?.trim().toLowerCase()==='true';
+const deepseekConfigured=Boolean(aiConfig?.providers.some(provider=>provider.id==='deepseek'));
+check(recommended,'DeepSeek opcional listo',!deepseekRequested||deepseekConfigured,deepseekRequested?'Verificar clave y modelo; habilitar solo con autorización del titular y aceptación de posibles cargos.':'Desactivado por defecto; no forma parte de la cadena de proveedores.');
 const mailConfigured=Boolean(env.SMTP_HOST?.trim()&&env.MAIL_FROM?.trim());
 const mailAuthConsistent=Boolean(env.SMTP_USER?.trim())===Boolean(env.SMTP_PASSWORD);
 check(recommended,'Correo listo',mailConfigured&&mailAuthConsistent,'SMTP_HOST y MAIL_FROM; SMTP_USER y SMTP_PASSWORD deben configurarse juntos');

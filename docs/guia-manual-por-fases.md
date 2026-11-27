@@ -29,6 +29,7 @@ Revisada el 26 de noviembre de 2026. Esta guía ordena las conexiones, decisione
 - [ ] Mantener Gemini API en Free como principal. Para que el proyecto siga costando cero, no asociar una cuenta de facturación ni activar funciones de pago.
 - [x] Crear una cuenta en Groq Console y una API key de prueba. La organización se mantiene en **Free**; no actualizar a Developer ni agregar método de pago.
 - [x] Completar `AI_BACKUP_API_URL`, `AI_BACKUP_API_KEY` y `AI_BACKUP_MODEL` en `backend/.env`. No compartir la clave por chat; permanece fuera de Git.
+- [ ] DeepSeek está preparado como último respaldo opcional con `AI_DEEPSEEK_API_URL`, `AI_DEEPSEEK_API_KEY` y `AI_DEEPSEEK_MODEL`; viene apagado. Antes de pegar la clave prestada o cambiar `AI_DEEPSEEK_ENABLED=true`, confirmar autorización del titular y quién asume el costo por uso.
 - [x] La aplicación intenta Groq una sola vez si el proveedor principal devuelve indisponibilidad, límite/cuota, timeout o una respuesta JSON inválida. El recorrido sintético confirmó el fallback. No reintenta fallos de solicitud HTTP 400.
 - [ ] Usar solo datos ficticios en ambos proveedores. Gemini informa que la cuota gratuita puede usar solicitudes para mejorar sus productos; Groq no conserva por defecto solicitudes de inferencia, pero puede retenerlas hasta 30 días para confiabilidad y abuso.
 - [x] Reiniciar el backend. Se inició la aplicación localmente; API responde salud `ok` y el frontend responde HTTP 200.
@@ -123,7 +124,7 @@ Preflight sin requisitos obligatorios faltantes, aceptación y suite registradas
 
 ## Estado actual
 
-- Fase 1: Gemini API Free y Groq Free están configurados localmente. La prueba sintética recorrió Gemini → Groq y terminó correctamente con el respaldo; no se enviaron datos personales. Falta revisar **Integraciones** desde la interfaz y ejecutar agentes con datos ficticios. La clave DeepSeek prestada no está configurada ni se usó; falta autorización explícita del titular para cualquier uso que pudiera generar cargos. Falta inventariar correo SMTP y n8n.
+- Fase 1: Gemini API Free y Groq están configurados localmente. La prueba sintética recorrió Gemini → Groq y terminó correctamente con el respaldo; no se enviaron datos personales. DeepSeek está preparado pero desactivado y sin clave; requiere confirmar autorización del titular y el pago antes de activarlo. Falta revisar **Integraciones** desde la interfaz y ejecutar agentes con datos ficticios. Falta inventariar correo SMTP y n8n.
 - Fase 2: WF-01 tiene endpoint autenticado y workflow genérico exportado; falta importar n8n y elegir fuente. WF-02 está exportado; WF-03 y AG-04 esperan definiciones.
 - Fase 3: pendiente; no se ha elegido infraestructura de staging/producción.
 - Fase 4: pendiente; no se marca como aprobada sin ejecución real.

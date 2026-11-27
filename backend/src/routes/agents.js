@@ -27,6 +27,7 @@ export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis
   storageDir ??= join(repositoryRoot,'.local','documents');
   const config = readAgentConfig(env);
   const aiBackupConfigured = Boolean(config?.providers.some(provider => provider.id === 'backup'));
+  const aiDeepseekConfigured = Boolean(config?.providers.some(provider => provider.id === 'deepseek'));
   return ({ router, db, assets, preferences, requireRoles, simulate, validate, schemas }) => {
     const executions = createAiExecutionModel(db);
     const controller = createFinanceController({
@@ -48,7 +49,7 @@ export function configureAgentRoutes({ env = process.env, fetchImpl = globalThis
     const documents = createDocumentsModel(db);
     const documentsController=createDocumentsController(documents);
     const extractor = createExtractAgent({config,documents,executions,storageDir,fetchImpl});
-    router.get('/admin/integrations',requireRoles('admin'),createIntegrationReadinessController({env,agentConfigured:Boolean(config),aiBackupConfigured,databaseKind:db.kind}));
+    router.get('/admin/integrations',requireRoles('admin'),createIntegrationReadinessController({env,agentConfigured:Boolean(config),aiBackupConfigured,aiDeepseekConfigured,databaseKind:db.kind}));
     router.get('/capabilities', (_req, res) => res.json({ financeAgent: Boolean(config), comparisonAgent: Boolean(config), searchAgent: Boolean(config), scoreAgent: true, extractAgent: Boolean(config), ragAgent: Boolean(config), remyAgent: Boolean(config) }));
     router.post('/agents/remy', requireRoles('buyer'), limit,
       validate({body:z.strictObject({query:z.string().trim().min(2).max(500)})}),

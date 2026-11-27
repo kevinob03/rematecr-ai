@@ -35,6 +35,9 @@ export function readAgentConfig(env = process.env) {
   const providers = [
     readProviderConfig({ id: 'primary', address: env.AI_API_URL, key: env.AI_API_KEY, model: env.AI_MODEL }),
     readProviderConfig({ id: 'backup', address: env.AI_BACKUP_API_URL, key: env.AI_BACKUP_API_KEY, model: env.AI_BACKUP_MODEL }),
+    ...(env.AI_DEEPSEEK_ENABLED?.trim().toLowerCase() === 'true'
+      ? [readProviderConfig({ id: 'deepseek', address: env.AI_DEEPSEEK_API_URL, key: env.AI_DEEPSEEK_API_KEY, model: env.AI_DEEPSEEK_MODEL })]
+      : []),
   ].filter(Boolean);
   return providers.length ? { ...providers[0], providers } : null;
 }
@@ -84,7 +87,7 @@ async function requestProvider({ provider, instruction, data, schema, fetchImpl 
       signal,
       body: JSON.stringify({
         model: provider.model,
-        max_completion_tokens: 192,
+        ...(provider.id === 'deepseek' ? { max_tokens: 192, thinking: { type: 'disabled' } } : { max_completion_tokens: 192 }),
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: instruction },

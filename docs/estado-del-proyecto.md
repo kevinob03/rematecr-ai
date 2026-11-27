@@ -26,6 +26,7 @@ Los porcentajes se redondean al reportarlos. Subirán cuando se completen o vali
 ## Implementado en la demostración local
 
 - [x] Soporte para proveedor principal y respaldo de IA: fallback único ante errores transitorios, timeout o JSON inválido; las ejecuciones registran el proveedor/modelo utilizado. Gemini y Groq Free están configurados localmente; el recorrido sintético Gemini → Groq respondió correctamente. Falta validar agentes desde la interfaz y revisar las condiciones de datos antes de usar información real.
+- [x] DeepSeek preparado como tercer respaldo opcional en el entorno local y en el código; permanece desactivado (`AI_DEEPSEEK_ENABLED=false`) y sin clave. Su uso requiere permiso del titular de la cuenta y aceptación de cargos por consumo.
 
 - [x] Proyecto full stack con frontend React, API Express por capas, base SQL, migraciones y datos ficticios.
 - [x] Catálogo de bienes, filtros, fichas con procedencia y estado vacío para categorías sin datos autorizados.
