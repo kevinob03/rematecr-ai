@@ -216,6 +216,9 @@ svg { flex: none; }
 .detail-tags { display: flex; flex-wrap: wrap; gap: 10px 14px; margin: 16px 0 20px; color: var(--muted); font-size: .85rem; }
 .detail-tags > span { display: inline-flex; align-items: center; gap: 5px; }
 .form-card { padding: 24px; }
+.demo-access { margin-top: 24px; }
+.demo-access h3, .demo-access p { margin: 0; }
+.demo-access .button { justify-content: flex-start; }
 .align-start { align-self: start; }
 .field { display: grid; gap: 7px; min-width: 0; }
 .field label { font-size: .89rem; font-weight: 660; }
